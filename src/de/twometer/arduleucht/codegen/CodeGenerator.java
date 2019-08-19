@@ -11,6 +11,7 @@ public class CodeGenerator {
         Project project = job.getProject();
         CodeWriter codeWriter = new CodeWriter();
 
+        project.getMainBlock().writeIncludes(codeWriter);
         project.getMainBlock().writeInit(codeWriter);
         project.getMainBlock().writeExecute(codeWriter);
 

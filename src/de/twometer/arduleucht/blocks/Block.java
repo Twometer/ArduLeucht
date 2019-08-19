@@ -2,10 +2,14 @@ package de.twometer.arduleucht.blocks;
 
 import de.twometer.arduleucht.codegen.CodeWriter;
 
-public abstract class Block {
+public interface Block {
 
-    public abstract void writeInit(CodeWriter writer);
+    void writeIncludes(CodeWriter writer);
 
-    public abstract void writeExecute(CodeWriter writer);
+    void writeInit(CodeWriter writer);
+
+    void writeExecute(CodeWriter writer);
+
+    BlockType getBlockType();
 
 }
