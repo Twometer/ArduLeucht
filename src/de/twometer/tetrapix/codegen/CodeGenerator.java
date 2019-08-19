@@ -29,8 +29,7 @@ public class CodeGenerator {
     }
 
     private boolean tryDelete(File genFile) {
-        if (genFile.exists()) return genFile.delete();
-        return true;
+        return !genFile.exists() || genFile.delete();
     }
 
 }

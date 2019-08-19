@@ -12,7 +12,7 @@ public class CodeWriter {
 
     public void writeSimpleAlloc(String type, String name, String value) {
         writeIndent();
-        writef("%s %s = %s;", type, name, value);
+        writef("%s %s = %s;\n", type, name, value);
     }
 
     public void writeStackAlloc(String type, String name, String... args) {
@@ -32,13 +32,13 @@ public class CodeWriter {
 
     public void openVoid(String name) {
         writeIndent();
-        writef("void %s() {", name);
+        writef("void %s() {\n", name);
         indent++;
     }
 
     public void openFor(String variable, String from, String to, String step) {
         writeIndent();
-        writef("for (%1$s = %2$s; %1$s < %3$s; %1$s++) {");
+        writef("for (%1$s = %2$s; %1$s < %3$s; %1$s++) {\n", variable, from, to, step);
         indent++;
     }
 
