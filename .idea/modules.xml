@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/tetrapix-reloaded.iml" filepath="$PROJECT_DIR$/tetrapix-reloaded.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ArduLeucht.iml" filepath="$PROJECT_DIR$/ArduLeucht.iml" />
     </modules>
   </component>
 </project>

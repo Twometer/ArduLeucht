@@ -1,7 +1,7 @@
-package de.twometer.tetrapix.codegen;
+package de.twometer.arduleucht.codegen;
 
-import de.twometer.tetrapix.model.BuildJob;
-import de.twometer.tetrapix.model.Project;
+import de.twometer.arduleucht.model.BuildJob;
+import de.twometer.arduleucht.model.Project;
 
 import java.io.*;
 

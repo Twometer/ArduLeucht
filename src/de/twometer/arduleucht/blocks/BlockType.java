@@ -1,4 +1,4 @@
-package de.twometer.tetrapix.blocks;
+package de.twometer.arduleucht.blocks;
 
 public enum BlockType {
 

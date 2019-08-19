@@ -1,4 +1,4 @@
-package de.twometer.tetrapix.model;
+package de.twometer.arduleucht.model;
 
 public class BuildJob {
 
