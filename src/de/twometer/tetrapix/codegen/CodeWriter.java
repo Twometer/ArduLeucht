@@ -4,11 +4,19 @@ public class CodeWriter {
 
     private StringBuilder builder = new StringBuilder();
 
+    private int indent;
+
     public void writeInclude(String file) {
         writef("#include <%s>\n", file);
     }
 
+    public void writeSimpleAlloc(String type, String name, String value) {
+        writeIndent();
+        writef("%s %s = %s;", type, name, value);
+    }
+
     public void writeStackAlloc(String type, String name, String... args) {
+        writeIndent();
         writef("%1$s %2$s = %1$s(");
 
         boolean first = true;
@@ -23,10 +31,21 @@ public class CodeWriter {
     }
 
     public void openVoid(String name) {
+        writeIndent();
         writef("void %s() {", name);
+        indent++;
+    }
+
+    public void openFor(String variable, String from, String to, String step) {
+        writeIndent();
+        writef("for (%1$s = %2$s; %1$s < %3$s; %1$s++) {");
+        indent++;
     }
 
     public void closeBlock() {
+        indent--;
+        writeIndent();
+
         write("}\n");
     }
 
@@ -38,7 +57,12 @@ public class CodeWriter {
         builder.append(String.format(str, format));
     }
 
-    public String getCode() {
+    private void writeIndent() {
+        for (int i = 0; i < indent * 4; i++)
+            write(" ");
+    }
+
+    String getCode() {
         return builder.toString();
     }
 
