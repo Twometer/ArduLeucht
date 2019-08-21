@@ -1,8 +1,8 @@
-package de.twometer.arduleucht.build;
+package de.twometer.arduleucht.build.event;
 
 public interface BuildListener {
 
-    void onBuildProgressChanged(int progress);
+    void onBuildProgressChanged(BuildState buildState);
 
     void onBuildFailed(String message);
 
