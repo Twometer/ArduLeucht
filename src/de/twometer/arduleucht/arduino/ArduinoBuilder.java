@@ -57,7 +57,7 @@ public class ArduinoBuilder implements ArduinoSdk {
         builder.addEqualsParameter("prefs=runtime.tools.avr-gcc.path", gccPath);
         builder.addEqualsParameter("prefs=runtime.tools.avr-gcc-4.8.1", gccPath);
 
-        String micronucleusPath = getContentFile("hardware\\digistum\\tools\\micronucleus\\2.0a4");
+        String micronucleusPath = getContentFile("hardware\\digistump\\tools\\micronucleus\\2.0a4");
         builder.addEqualsParameter("prefs=runtime.tools.micronucleus.path", micronucleusPath);
         builder.addEqualsParameter("prefs=runtime.tools.micronucleus-2.0a4.path", micronucleusPath);
 

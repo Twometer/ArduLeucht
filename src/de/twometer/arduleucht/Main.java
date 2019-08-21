@@ -1,24 +1,36 @@
 package de.twometer.arduleucht;
 
-import de.twometer.arduleucht.arduino.ArduinoBuilder;
-import de.twometer.arduleucht.arduino.Micronucleus;
-import de.twometer.arduleucht.build.BuildException;
+import de.twometer.arduleucht.build.ProjectBuilder;
+import de.twometer.arduleucht.build.event.BuildListener;
+import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
 
 import java.io.File;
 
 public class Main {
 
-    public static void main(String[] args) throws BuildException {
+    public static void main(String[] args) {
         Project project = new Project(new File("D:\\test_project"));
-        ArduinoBuilder builder = new ArduinoBuilder(project);
-        String builderCmd = builder.createCommandLine();
+        ProjectBuilder builder = new ProjectBuilder(project);
 
-        Micronucleus micronucleus = new Micronucleus(builder.getOutputFile());
-        String uploaderCmd = micronucleus.createCommandLine();
+        builder.setBuildListener(new BuildListener() {
+            @Override
+            public void onBuildStateChanged(BuildState buildState) {
+                System.out.println("Build state: " + buildState);
+            }
 
-        System.out.println(builderCmd);
-        System.out.println(uploaderCmd);
+            @Override
+            public void onBuildFailed(String message) {
+                System.out.println("Build failed: " + message);
+            }
+
+            @Override
+            public void onBuildSucceeded() {
+                System.out.println("Build successful");
+            }
+        });
+
+        builder.build();
     }
 
 }

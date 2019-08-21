@@ -1,6 +1,7 @@
 package de.twometer.arduleucht.build;
 
 import de.twometer.arduleucht.build.event.BuildListener;
+import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.build.jobs.BuildJob;
 import de.twometer.arduleucht.build.jobs.CompileJob;
 import de.twometer.arduleucht.build.jobs.UploadJob;
@@ -21,13 +22,30 @@ public class ProjectBuilder {
 
     private File hexFile;
 
+    private BuildListener buildListener = new BuildListener() {
+        @Override
+        public void onBuildStateChanged(BuildState buildState) {
+
+        }
+
+        @Override
+        public void onBuildFailed(String message) {
+
+        }
+
+        @Override
+        public void onBuildSucceeded() {
+
+        }
+    };
+
     public ProjectBuilder(Project project) {
         this.project = project;
     }
 
-    public void build(BuildListener buildListener) {
+    public void build() {
         new Thread(() -> {
-            for(BuildJob job : JOBS) {
+            for (BuildJob job : JOBS) {
                 try {
                     job.execute(this);
                 } catch (IOException | BuildException e) {
@@ -37,6 +55,14 @@ public class ProjectBuilder {
             }
             buildListener.onBuildSucceeded();
         }, "BuildThread").start();
+    }
+
+    public BuildListener getBuildListener() {
+        return buildListener;
+    }
+
+    public void setBuildListener(BuildListener buildListener) {
+        this.buildListener = buildListener;
     }
 
     public Project getProject() {
