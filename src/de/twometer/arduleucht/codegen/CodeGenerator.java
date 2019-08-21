@@ -1,14 +1,13 @@
 package de.twometer.arduleucht.codegen;
 
-import de.twometer.arduleucht.model.BuildJob;
+import de.twometer.arduleucht.build.BuildException;
 import de.twometer.arduleucht.model.Project;
 
 import java.io.*;
 
 public class CodeGenerator {
 
-    public void generateCode(BuildJob job) throws FileNotFoundException {
-        Project project = job.getProject();
+    public void generateCode(Project project) throws FileNotFoundException, BuildException {
         CodeWriter codeWriter = new CodeWriter();
 
         project.getMainBlock().writeIncludes(codeWriter);
@@ -19,10 +18,8 @@ public class CodeGenerator {
 
         File genFile = new File(project.getProjectFolder(), "generated.ino");
 
-        if (!tryDelete(genFile)) {
-            job.fail("Could not delete previously generated .ino file");
-            return;
-        }
+        if (!tryDelete(genFile))
+            throw new BuildException("Could not delete previously generated .ino file");
 
         PrintWriter writer = new PrintWriter(new FileOutputStream(genFile));
         writer.write(generatedCode);
