@@ -16,7 +16,7 @@ public class CodeGenerator {
 
         String generatedCode = codeWriter.getCode();
 
-        File genFile = new File(project.getProjectFolder(), "generated.ino");
+        File genFile = project.getGeneratedFile();
 
         if (!tryDelete(genFile))
             throw new BuildException("Could not delete previously generated .ino file");
