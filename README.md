@@ -18,7 +18,7 @@ To install, use MSI blah blah blah, note the importance of the digispark drivers
 ...
 
 ## Reporting bugs
-To report a bug or request a new feature, please use the [GitHub issues](https://github.com/Twometer/ArduLeucht/issues/new) system.
+To report a bug or request a new feature, please use the [GitHub issues](https://github.com/Twometer/ArduLeucht/issues/new/choose) system.
 
 For more complicated or individual issues, you can contact me here: [support@twometer.de](mailto:support@twometer.de)
 
