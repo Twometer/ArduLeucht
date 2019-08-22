@@ -14,6 +14,8 @@ public abstract class Block {
 
     private String name;
 
+    private Block parent;
+
     private BlockCategory category;
 
     private BlockType type;
@@ -40,6 +42,14 @@ public abstract class Block {
         return type;
     }
 
+    public Block getParent() {
+        return parent;
+    }
+
+    public void setParent(Block parent) {
+        this.parent = parent;
+    }
+
     private List<BlockSocket> getSockets() {
         return sockets;
     }
@@ -56,7 +66,7 @@ public abstract class Block {
     }
 
     protected BlockSocket addSocket(String name, BlockType blockType) {
-        BlockSocket socket = new BlockSocket(name, blockType);
+        BlockSocket socket = new BlockSocket(this, name, blockType);
         getSockets().add(socket);
         return socket;
     }

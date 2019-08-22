@@ -3,9 +3,11 @@ package de.twometer.arduleucht.gui;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
 import de.twometer.arduleucht.blocks.registry.BlockRegistry;
+import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.util.ResourceLoader;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -25,6 +27,10 @@ public class MainController {
     public Canvas mainCanvas;
 
     public AnchorPane canvasContainer;
+
+    private Project currentProject;
+
+    private boolean dirty = false;
 
     @FXML
     public void initialize() {
@@ -50,6 +56,13 @@ public class MainController {
         });
 
         loadTreeView();
+
+        render();
+    }
+
+    private void render() {
+        GraphicsContext gc = mainCanvas.getGraphicsContext2D();
+
     }
 
     @FXML

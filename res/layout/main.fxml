@@ -3,35 +3,34 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191"
-      fx:controller="de.twometer.arduleucht.gui.MainController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="de.twometer.arduleucht.gui.MainController">
     <MenuBar>
         <Menu text="%file">
-            <MenuItem text="%new" accelerator="Shortcut+N" onAction="#onNewProject"/>
-            <MenuItem text="%open" accelerator="Shortcut+O" onAction="#onOpenProject"/>
-            <MenuItem text="%save" accelerator="Shortcut+S" onAction="#onSaveProject"/>
+            <MenuItem accelerator="Shortcut+N" onAction="#onNewProject" text="%new"/>
+            <MenuItem accelerator="Shortcut+O" onAction="#onOpenProject" text="%open"/>
+            <MenuItem accelerator="Shortcut+S" onAction="#onSaveProject" text="%save"/>
             <SeparatorMenuItem/>
-            <MenuItem text="%quit" onAction="#onExit"/>
+            <MenuItem onAction="#onExit" text="%quit"/>
         </Menu>
         <Menu text="%code">
-            <MenuItem text="%upload" onAction="#onUpload"/>
+            <MenuItem onAction="#onUpload" text="%upload"/>
         </Menu>
         <Menu text="?">
-            <MenuItem text="%about" onAction="#onAbout"/>
+            <MenuItem onAction="#onAbout" text="%about"/>
         </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <Button text="%new" onAction="#onNewProject"/>
-        <Button text="%open" onAction="#onOpenProject"/>
-        <Button text="%save" onAction="#onSaveProject"/>
-        <Button text="%upload" onAction="#onUpload"/>
+        <Button onAction="#onNewProject" text="%new"/>
+        <Button onAction="#onOpenProject" text="%open"/>
+        <Button onAction="#onSaveProject" text="%save"/>
+        <Button onAction="#onUpload" text="%upload"/>
     </ToolBar>
     <SplitPane dividerPositions="0.25" focusTraversable="true" VBox.vgrow="ALWAYS">
-        <TreeView VBox.vgrow="ALWAYS" fx:id="blocksTreeView"/>
-        <AnchorPane VBox.vgrow="ALWAYS" style="-fx-background-color: #4f4f4f" fx:id="canvasContainer">
-            <Canvas fx:id="mainCanvas" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0"/>
+        <TreeView fx:id="blocksTreeView" VBox.vgrow="ALWAYS"/>
+        <AnchorPane fx:id="canvasContainer" style="-fx-background-color: #4f4f4f" VBox.vgrow="ALWAYS">
+            <Canvas fx:id="mainCanvas" height="533.0" width="595.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         </AnchorPane>
     </SplitPane>
 </VBox>

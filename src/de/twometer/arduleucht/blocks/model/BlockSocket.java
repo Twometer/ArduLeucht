@@ -8,6 +8,8 @@ import java.util.List;
 
 public class BlockSocket {
 
+    private Block sourceBlock;
+
     private String name;
 
     private EnumSet<BlockType> allowedTypes;
@@ -16,7 +18,8 @@ public class BlockSocket {
 
     private boolean allowsMultiple;
 
-    public BlockSocket(String name, BlockType allowedType) {
+    public BlockSocket(Block sourceBlock, String name, BlockType allowedType) {
+        this.sourceBlock = sourceBlock;
         this.name = name;
         this.allowedTypes = EnumSet.of(allowedType);
     }
@@ -34,9 +37,8 @@ public class BlockSocket {
         return allowedTypes;
     }
 
-    public BlockSocket allowMultiple() {
+    public void allowMultiple() {
         this.allowsMultiple = true;
-        return this;
     }
 
     public boolean allowsMultiple() {
@@ -46,15 +48,24 @@ public class BlockSocket {
     public void setValue(Block value) {
         values.clear();
         values.add(value);
+        value.setParent(sourceBlock);
     }
 
     public void addValue(Block value) throws BlockException {
         if (!allowsMultiple)
             throw new BlockException("This socket does not allow multiple values");
         values.add(value);
+        value.setParent(sourceBlock);
+    }
+
+    public void removeValue(Block value) {
+        value.setParent(null);
+        values.remove(value);
     }
 
     public void clearValues() {
+        for (Block block : values)
+            block.setParent(null);
         values.clear();
     }
 
