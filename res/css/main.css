@@ -4,3 +4,7 @@
     -fx-faint-focus-color: transparent;
     -fx-focus-color: transparent;
 }
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

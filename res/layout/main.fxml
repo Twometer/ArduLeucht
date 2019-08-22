@@ -2,7 +2,7 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0"
       xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="de.twometer.arduleucht.gui.MainController">
     <MenuBar>
@@ -28,9 +28,9 @@
     </ToolBar>
     <SplitPane dividerPositions="0.25" focusTraversable="true" VBox.vgrow="ALWAYS">
         <TreeView fx:id="blocksTreeView" VBox.vgrow="ALWAYS"/>
-        <AnchorPane fx:id="canvasContainer" style="-fx-background-color: #4f4f4f" VBox.vgrow="ALWAYS">
-            <Canvas fx:id="mainCanvas" height="533.0" width="595.0" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-        </AnchorPane>
+        <ScrollPane fx:id="canvasContainer" VBox.vgrow="ALWAYS"
+                    style="-fx-background-color: #4f4f4f">
+            <Canvas fx:id="mainCanvas" height="1920.0" width="1080.0"/>
+        </ScrollPane>
     </SplitPane>
 </VBox>

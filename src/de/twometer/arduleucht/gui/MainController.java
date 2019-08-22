@@ -10,14 +10,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
 
 import java.util.ResourceBundle;
 
@@ -30,7 +26,7 @@ public class MainController {
 
     public Canvas mainCanvas;
 
-    public AnchorPane canvasContainer;
+    public ScrollPane canvasContainer;
 
     private Project currentProject;
 
@@ -40,6 +36,7 @@ public class MainController {
     public void initialize() {
         blocksTreeView.setCellFactory(new DragCellFactory());
 
+        canvasContainer.setPannable(true);
         canvasContainer.setOnDragOver(event -> {
             if (!event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT))
                 return;
