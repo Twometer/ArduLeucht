@@ -20,7 +20,7 @@ public class MainController {
     @SuppressWarnings("WeakerAccess") // Let the FXML Loader access this field!
     public ResourceBundle resources;
 
-    public TreeView<String> blocksTreeView;
+    public TreeView<Tagged> blocksTreeView;
 
     public Canvas mainCanvas;
 
@@ -34,6 +34,18 @@ public class MainController {
             if (!event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT))
                 return;
             event.acceptTransferModes(TransferMode.COPY);
+            event.consume();
+        });
+
+        canvasContainer.setOnDragDropped(event -> {
+            boolean success = event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT);
+
+            if (success) {
+                Tagged tagged = (Tagged) event.getDragboard().getContent(DragCellFactory.DATA_FORMAT);
+                System.out.println("Adding block " + tagged.getTag());
+            }
+
+            event.setDropCompleted(success);
             event.consume();
         });
 
@@ -72,21 +84,32 @@ public class MainController {
 
     private void loadTreeView() {
         blocksTreeView.setShowRoot(false);
-        TreeItem<String> root = new TreeItem<>();
-        for (BlockCategory category : BlockCategory.values()) {
-            String categoryName = i18n(category.getName());
-            Image image = new Image(ResourceLoader.getResourceAsStream(category.getIconPath()));
 
-            TreeItem<String> categoryItem = new TreeItem<>(categoryName, new ImageView(image));
+        TreeItem<Tagged> root = new TreeItem<>();
+
+        for (BlockCategory category : BlockCategory.values()) {
+            Image image = loadImage(category);
+            String categoryName = i18n(category.getName());
+
+            TreeItem<Tagged> categoryItem = new TreeItem<>(new Tagged(categoryName), new ImageView(image));
+
             for (BlockInfo info : BlockRegistry.getBlocks(category)) {
                 String blockName = i18n(info.getName());
-                TreeItem<String> item = new TreeItem<>(blockName, new ImageView(image));
+                String className = info.getBlockClass().getName();
+
+                Tagged tagged = new Tagged(blockName, className);
+                TreeItem<Tagged> item = new TreeItem<>(tagged, new ImageView(image));
+
                 categoryItem.getChildren().add(item);
             }
 
             root.getChildren().add(categoryItem);
         }
         blocksTreeView.setRoot(root);
+    }
+
+    private Image loadImage(BlockCategory category) {
+        return new Image(ResourceLoader.getResourceAsStream(category.getIconPath()));
     }
 
     private String i18n(String key) {

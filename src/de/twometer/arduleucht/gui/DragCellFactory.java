@@ -8,22 +8,22 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.util.Callback;
 
-public class DragCellFactory implements Callback<TreeView<String>, TreeCell<String>> {
+public class DragCellFactory implements Callback<TreeView<Tagged>, TreeCell<Tagged>> {
 
     static DataFormat DATA_FORMAT = new DataFormat("text/arduleucht-block");
 
     @Override
-    public TreeCell<String> call(TreeView<String> param) {
-        TreeCell<String> cell = new TreeCell<String>() {
+    public TreeCell<Tagged> call(TreeView<Tagged> param) {
+        TreeCell<Tagged> cell = new TreeCell<Tagged>() {
             @Override
-            protected void updateItem(String item, boolean empty) {
+            protected void updateItem(Tagged item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setText(null);
                     setGraphic(null);
                 } else {
                     setGraphic(getTreeItem().getGraphic());
-                    setText(item);
+                    setText(item.getValue());
                 }
             }
         };
