@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="105.0" prefWidth="200" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      fx:controller="de.twometer.arduleucht.gui.UploadController">
+    <Label style="-fx-padding: 8px 16px;-fx-font-size: 16pt;" text="Upload"/>
+    <Label fx:id="uploadContentLabel" style="-fx-padding: 16px 16px;" text="Generating code..."/>
+    <ProgressBar fx:id="progressBar" minWidth="200" prefWidth="200"/>
+</VBox>

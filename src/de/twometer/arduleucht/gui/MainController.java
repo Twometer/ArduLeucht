@@ -4,6 +4,9 @@ import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
 import de.twometer.arduleucht.blocks.registry.BlockRegistry;
+import de.twometer.arduleucht.build.ProjectBuilder;
+import de.twometer.arduleucht.build.event.BuildListener;
+import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
@@ -17,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -104,8 +108,40 @@ public class MainController {
     }
 
     @FXML
-    public void onUpload() {
+    public void onUpload() throws IOException {
+        if (currentProject == null)
+            return;
 
+        UploadController controller = UploadController.show();
+        ProjectBuilder builder = new ProjectBuilder(currentProject);
+        builder.setBuildListener(new BuildListener() {
+            @Override
+            public void onBuildStateChanged(BuildState buildState) {
+                switch (buildState) {
+                    case COMPILE:
+                        controller.setStatus("Compiling...");
+                        break;
+                    case PLUG_IN:
+                        controller.setStatus("Plug in device now!");
+                        break;
+                    case UPLOADING:
+                        controller.setStatus("Uploading...");
+                        break;
+                }
+            }
+
+            @Override
+            public void onBuildFailed(String message) {
+                controller.close();
+                // TODO Show error message
+            }
+
+            @Override
+            public void onBuildSucceeded() {
+                controller.close();
+                // TODO Show success message
+            }
+        });
     }
 
     @FXML

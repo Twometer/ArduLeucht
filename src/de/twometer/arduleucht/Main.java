@@ -33,29 +33,4 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
-    /*
-    Project project = new Project(new File("D:\\test_project"));
-        ProjectBuilder builder = new ProjectBuilder(project);
-
-        builder.setBuildListener(new BuildListener() {
-            @Override
-            public void onBuildStateChanged(BuildState buildState) {
-                System.out.println("Build state: " + buildState);
-            }
-
-            @Override
-            public void onBuildFailed(String message) {
-                System.out.println("Build failed: " + message);
-            }
-
-            @Override
-            public void onBuildSucceeded() {
-                System.out.println("Build successful");
-            }
-        });
-
-        builder.build();
-     */
-
 }
