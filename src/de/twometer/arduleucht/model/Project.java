@@ -1,6 +1,6 @@
 package de.twometer.arduleucht.model;
 
-import de.twometer.arduleucht.blocks.Block;
+import de.twometer.arduleucht.blocks.base.Block;
 
 import java.io.File;
 

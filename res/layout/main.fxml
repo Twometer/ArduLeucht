@@ -3,32 +3,34 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191">
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.191"
+      fx:controller="de.twometer.arduleucht.gui.MainController">
     <MenuBar>
-        <Menu mnemonicParsing="false" text="%file">
-            <MenuItem mnemonicParsing="false" text="%new" accelerator="Shortcut+N"/>
-            <MenuItem mnemonicParsing="false" text="%open" accelerator="Shortcut+O"/>
-            <MenuItem mnemonicParsing="false" text="%save" accelerator="Shortcut+S"/>
-            <SeparatorMenuItem mnemonicParsing="false"/>
-            <MenuItem mnemonicParsing="false" text="%quit"/>
+        <Menu text="%file">
+            <MenuItem text="%new" accelerator="Shortcut+N" onAction="#onNewProject"/>
+            <MenuItem text="%open" accelerator="Shortcut+O" onAction="#onOpenProject"/>
+            <MenuItem text="%save" accelerator="Shortcut+S" onAction="#onSaveProject"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="%quit" onAction="#onExit"/>
         </Menu>
-        <Menu mnemonicParsing="false" text="%code">
-            <MenuItem mnemonicParsing="false" text="%upload"/>
+        <Menu text="%code">
+            <MenuItem text="%upload" onAction="#onUpload"/>
         </Menu>
-        <Menu mnemonicParsing="false" text="?">
-            <MenuItem mnemonicParsing="false" text="%about"/>
+        <Menu text="?">
+            <MenuItem text="%about" onAction="#onAbout"/>
         </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <Button mnemonicParsing="false" text="%new"/>
-        <Button mnemonicParsing="false" text="%open"/>
-        <Button mnemonicParsing="false" text="%save"/>
-        <Button mnemonicParsing="false" text="%upload"/>
+        <Button text="%new" onAction="#onNewProject"/>
+        <Button text="%open" onAction="#onOpenProject"/>
+        <Button text="%save" onAction="#onSaveProject"/>
+        <Button text="%upload" onAction="#onUpload"/>
     </ToolBar>
     <SplitPane dividerPositions="0.25" focusTraversable="true" VBox.vgrow="ALWAYS">
         <TreeView VBox.vgrow="ALWAYS" fx:id="blocksTreeView"/>
         <AnchorPane VBox.vgrow="ALWAYS" style="-fx-background-color: #4f4f4f">
-            <Canvas AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            <Canvas fx:id="mainCanvas" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0"/>
         </AnchorPane>
     </SplitPane>
