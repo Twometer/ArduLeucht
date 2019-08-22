@@ -4,10 +4,14 @@ import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
 import de.twometer.arduleucht.blocks.registry.BlockRegistry;
 import de.twometer.arduleucht.model.Project;
+import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
@@ -67,11 +71,17 @@ public class MainController {
 
     @FXML
     public void onNewProject() {
+        ButtonType action = dirtyConfirmation();
+        if (ButtonType.YES.equals(action)) onSaveProject();
+        else if (ButtonType.CANCEL.equals(action)) return;
 
     }
 
     @FXML
     public void onOpenProject() {
+        ButtonType action = dirtyConfirmation();
+        if (ButtonType.YES.equals(action)) onSaveProject();
+        else if (ButtonType.CANCEL.equals(action)) return;
 
     }
 
@@ -82,7 +92,10 @@ public class MainController {
 
     @FXML
     public void onExit() {
-
+        ButtonType action = dirtyConfirmation();
+        if (ButtonType.YES.equals(action)) onSaveProject();
+        else if (ButtonType.CANCEL.equals(action)) return;
+        Platform.exit();
     }
 
     @FXML
@@ -92,7 +105,21 @@ public class MainController {
 
     @FXML
     public void onAbout() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(i18n("dialog.about.title"));
+        alert.setHeaderText(String.format(i18n("dialog.about.header"), BuildInfo.NAME));
+        alert.setContentText(String.format(i18n("dialog.about.content"), BuildInfo.VERSION));
+        alert.showAndWait();
+    }
 
+    private ButtonType dirtyConfirmation() {
+        if (!dirty) return null;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(i18n("dialog.dirty.title"));
+        alert.setHeaderText(null);
+        alert.setContentText(i18n("dialog.dirty.content"));
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        return alert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
     private void loadTreeView() {
