@@ -61,12 +61,13 @@ public class MainController {
         blocksTreeView.setShowRoot(false);
         TreeItem<String> root = new TreeItem<>();
         for (BlockCategory category : BlockCategory.values()) {
-            String localizedName = i18n(category.getName());
+            String categoryName = i18n(category.getName());
             Image image = new Image(ResourceLoader.getResourceAsStream(category.getIconPath()));
 
-            TreeItem<String> categoryItem = new TreeItem<>(localizedName, new ImageView(image));
+            TreeItem<String> categoryItem = new TreeItem<>(categoryName, new ImageView(image));
             for (BlockInfo info : BlockRegistry.getBlocks(category)) {
-                TreeItem<String> item = new TreeItem<>(i18n(info.getName()));
+                String blockName = i18n(info.getName());
+                TreeItem<String> item = new TreeItem<>(blockName, new ImageView(image));
                 categoryItem.getChildren().add(item);
             }
 

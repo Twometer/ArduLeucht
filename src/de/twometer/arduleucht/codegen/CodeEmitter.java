@@ -1,13 +1,35 @@
 package de.twometer.arduleucht.codegen;
 
-public class CodeWriter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CodeEmitter {
 
     private StringBuilder builder = new StringBuilder();
+
+    private List<String> includes = new ArrayList<>();
 
     private int indent;
 
     public void writeInclude(String file) {
+        if (includes.contains(file)) return;
+        includes.add(file);
         writef("#include <%s>\n", file);
+    }
+
+    public void writeCall(String parent, String method, String... args) {
+        writeIndent();
+        writef("%s.%s(", parent, method);
+
+        boolean first = true;
+        for (String arg : args) {
+            if (first) {
+                first = false;
+                write(arg);
+            } else writef(", %s", arg);
+        }
+
+        write(");\n");
     }
 
     public void writeSimpleAlloc(String type, String name, String value) {
@@ -30,7 +52,7 @@ public class CodeWriter {
         write(");\n");
     }
 
-    public void openVoid(String name) {
+    void openVoid(String name) {
         writeIndent();
         writef("void %s() {\n", name);
         indent++;
@@ -42,7 +64,7 @@ public class CodeWriter {
         indent++;
     }
 
-    public void closeBlock() {
+    void closeBlock() {
         indent--;
         writeIndent();
 
@@ -64,6 +86,13 @@ public class CodeWriter {
 
     String getCode() {
         return builder.toString();
+    }
+
+    void pipe(CodeEmitter out) {
+        for (String line : getCode().split("\n")) {
+            out.writeIndent();
+            out.writef("%s\n", line);
+        }
     }
 
 }

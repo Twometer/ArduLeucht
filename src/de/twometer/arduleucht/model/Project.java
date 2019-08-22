@@ -1,6 +1,6 @@
 package de.twometer.arduleucht.model;
 
-import de.twometer.arduleucht.blocks.base.Block;
+import de.twometer.arduleucht.blocks.ProgramBlock;
 
 import java.io.File;
 
@@ -8,7 +8,7 @@ public class Project {
 
     private File projectFolder;
 
-    private Block mainBlock;
+    private ProgramBlock programBlock = new ProgramBlock();
 
     public Project(File projectFolder) {
         this.projectFolder = projectFolder;
@@ -26,11 +26,7 @@ public class Project {
         this.projectFolder = projectFolder;
     }
 
-    public Block getMainBlock() {
-        return mainBlock;
-    }
-
-    public void setMainBlock(Block mainBlock) {
-        this.mainBlock = mainBlock;
+    public ProgramBlock getProgramBlock() {
+        return programBlock;
     }
 }

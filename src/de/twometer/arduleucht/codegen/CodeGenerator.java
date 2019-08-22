@@ -1,20 +1,25 @@
 package de.twometer.arduleucht.codegen;
 
+import de.twometer.arduleucht.blocks.base.BlockException;
 import de.twometer.arduleucht.build.BuildException;
 import de.twometer.arduleucht.model.Project;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
 public class CodeGenerator {
 
     public void generateCode(Project project) throws FileNotFoundException, BuildException {
-        CodeWriter codeWriter = new CodeWriter();
+        SourceBuilder builder = new SourceBuilder();
+        try {
+            project.getProgramBlock().write(builder, null);
+        } catch (BlockException e) {
+            throw new BuildException("Block system error: " + e.getMessage());
+        }
 
-        project.getMainBlock().writeIncludes(codeWriter);
-        project.getMainBlock().writeInit(codeWriter);
-        project.getMainBlock().writeExecute(codeWriter);
-
-        String generatedCode = codeWriter.getCode();
+        String generatedCode = builder.build();
 
         File genFile = project.getGeneratedFile();
 

@@ -1,6 +1,7 @@
 package de.twometer.arduleucht.blocks.base;
 
-import de.twometer.arduleucht.codegen.CodeWriter;
+import de.twometer.arduleucht.codegen.CodeEmitter;
+import de.twometer.arduleucht.codegen.SourceBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public abstract class Block {
 
     private BlockType type;
 
-    private List<BlockPort> ports = new ArrayList<>();
+    private List<BlockSocket> sockets = new ArrayList<>();
 
     public Block(String name, BlockCategory category, BlockType type) {
         this.name = name;
@@ -21,11 +22,7 @@ public abstract class Block {
         this.type = type;
     }
 
-    public abstract void writeIncludes(CodeWriter writer);
-
-    public abstract void writeInit(CodeWriter writer);
-
-    public abstract void writeExecute(CodeWriter writer);
+    public abstract void write(SourceBuilder builder, CodeEmitter scope) throws BlockException;
 
     public String getName() {
         return name;
@@ -39,7 +36,15 @@ public abstract class Block {
         return type;
     }
 
-    protected List<BlockPort> getPorts() {
-        return ports;
+    protected List<BlockSocket> getSockets() {
+        return sockets;
     }
+
+    protected BlockSocket getSocket(String name) throws BlockException {
+        for (BlockSocket socket : sockets)
+            if (socket.getName().equals(name))
+                return socket;
+        throw new BlockException("A socket with name " + name + " does not exist on this block");
+    }
+
 }
