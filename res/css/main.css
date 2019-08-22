@@ -1,0 +1,6 @@
+#blocksTreeView {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}

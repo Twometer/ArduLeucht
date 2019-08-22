@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class Main extends Application {
 
     public static void main(String[] args) {
@@ -16,7 +18,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(ResourceLoader.getResource("layout/main.fxml"));
+        loader.setResources(ResourceBundle.getBundle("bundles.gui"));
+
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(ResourceLoader.getResource("css/main.css").toExternalForm());
 
         primaryStage.setTitle(BuildInfo.buildTitle());
         primaryStage.setScene(scene);
