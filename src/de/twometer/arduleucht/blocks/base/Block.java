@@ -6,6 +6,7 @@ import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.blocks.model.BlockType;
 import de.twometer.arduleucht.codegen.CodeEmitter;
 import de.twometer.arduleucht.codegen.SourceBuilder;
+import de.twometer.arduleucht.render.BlockShape;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,15 @@ public abstract class Block {
 
     private BlockType type;
 
+    private BlockShape shape;
+
     private List<BlockSocket> sockets = new ArrayList<>();
 
     public Block(String name, BlockCategory category, BlockType type) {
         this.name = name;
         this.category = category;
         this.type = type;
+        this.shape = new BlockShape(this);
     }
 
     public abstract void write(SourceBuilder builder, CodeEmitter scope) throws BlockException;
@@ -44,6 +48,10 @@ public abstract class Block {
 
     public Block getParent() {
         return parent;
+    }
+
+    public BlockShape getShape() {
+        return shape;
     }
 
     public void setParent(Block parent) {

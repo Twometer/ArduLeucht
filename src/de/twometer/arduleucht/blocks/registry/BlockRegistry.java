@@ -27,4 +27,14 @@ public class BlockRegistry {
         return infos;
     }
 
+    public static Block createBlock(String className) {
+        try {
+            Class clazz = Class.forName(className);
+            return (Block) clazz.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

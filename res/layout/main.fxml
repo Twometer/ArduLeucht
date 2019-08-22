@@ -29,7 +29,7 @@
     <SplitPane dividerPositions="0.25" focusTraversable="true" VBox.vgrow="ALWAYS">
         <TreeView fx:id="blocksTreeView" VBox.vgrow="ALWAYS"/>
         <ScrollPane fx:id="canvasContainer" VBox.vgrow="ALWAYS"
-                    style="-fx-background-color: #4f4f4f">
+                    style="-fx-background-color: #34495e">
             <Canvas fx:id="mainCanvas" height="1920.0" width="1080.0"/>
         </ScrollPane>
     </SplitPane>

@@ -1,5 +1,6 @@
 package de.twometer.arduleucht.gui;
 
+import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
 import de.twometer.arduleucht.blocks.registry.BlockRegistry;
@@ -15,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -49,7 +51,10 @@ public class MainController {
 
             if (success) {
                 Tagged tagged = (Tagged) event.getDragboard().getContent(DragCellFactory.DATA_FORMAT);
-                System.out.println("Adding block " + tagged.getTag());
+                Block block = BlockRegistry.createBlock(tagged.getTag());
+                if (block == null) return;
+                currentProject.getTopLevelBlocks().add(block);
+                render();
             }
 
             event.setDropCompleted(success);
@@ -62,8 +67,11 @@ public class MainController {
     }
 
     private void render() {
+        if (currentProject == null) return;
         GraphicsContext gc = mainCanvas.getGraphicsContext2D();
-
+        gc.clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
+        for (Block block : currentProject.getTopLevelBlocks())
+            block.getShape().draw(gc);
     }
 
     @FXML
@@ -71,7 +79,7 @@ public class MainController {
         ButtonType action = dirtyConfirmation();
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
-
+        currentProject = new Project(new File("D:\\test-project"));
     }
 
     @FXML
