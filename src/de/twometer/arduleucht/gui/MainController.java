@@ -1,6 +1,6 @@
 package de.twometer.arduleucht.gui;
 
-import de.twometer.arduleucht.blocks.base.BlockCategory;
+import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
 import de.twometer.arduleucht.blocks.registry.BlockRegistry;
 import de.twometer.arduleucht.util.ResourceLoader;

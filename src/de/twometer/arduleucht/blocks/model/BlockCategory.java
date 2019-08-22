@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.blocks.base;
+package de.twometer.arduleucht.blocks.model;
 
 public enum BlockCategory {
 

@@ -1,6 +1,6 @@
 package de.twometer.arduleucht.codegen;
 
-import de.twometer.arduleucht.blocks.base.BlockException;
+import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.build.BuildException;
 import de.twometer.arduleucht.model.Project;
 

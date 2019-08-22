@@ -1,4 +1,6 @@
-package de.twometer.arduleucht.blocks.base;
+package de.twometer.arduleucht.blocks.model;
+
+import de.twometer.arduleucht.blocks.base.Block;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

@@ -1,5 +1,9 @@
 package de.twometer.arduleucht.blocks.base;
 
+import de.twometer.arduleucht.blocks.model.BlockCategory;
+import de.twometer.arduleucht.blocks.model.BlockException;
+import de.twometer.arduleucht.blocks.model.BlockSocket;
+import de.twometer.arduleucht.blocks.model.BlockType;
 import de.twometer.arduleucht.codegen.CodeEmitter;
 import de.twometer.arduleucht.codegen.SourceBuilder;
 
@@ -36,7 +40,7 @@ public abstract class Block {
         return type;
     }
 
-    protected List<BlockSocket> getSockets() {
+    private List<BlockSocket> getSockets() {
         return sockets;
     }
 
@@ -45,6 +49,16 @@ public abstract class Block {
             if (socket.getName().equals(name))
                 return socket;
         throw new BlockException("A socket with name " + name + " does not exist on this block");
+    }
+
+    protected Block getValue(String name) throws BlockException {
+        return getSocket(name).singleValue();
+    }
+
+    protected BlockSocket addSocket(String name, BlockType blockType) {
+        BlockSocket socket = new BlockSocket(name, blockType);
+        getSockets().add(socket);
+        return socket;
     }
 
 }

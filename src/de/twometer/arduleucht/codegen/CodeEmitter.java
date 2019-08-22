@@ -1,5 +1,8 @@
 package de.twometer.arduleucht.codegen;
 
+import de.twometer.arduleucht.blocks.base.Block;
+import de.twometer.arduleucht.blocks.model.BlockException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +20,10 @@ public class CodeEmitter {
         writef("#include <%s>\n", file);
     }
 
-    public void writeCall(String parent, String method, String... args) {
+    public void writeCall(String parent, String method, Object... args) throws BlockException {
         writeIndent();
         writef("%s.%s(", parent, method);
-
-        boolean first = true;
-        for (String arg : args) {
-            if (first) {
-                first = false;
-                write(arg);
-            } else writef(", %s", arg);
-        }
-
+        writeArgList(args);
         write(");\n");
     }
 
@@ -37,18 +32,10 @@ public class CodeEmitter {
         writef("%s %s = %s;\n", type, name, value);
     }
 
-    public void writeStackAlloc(String type, String name, String... args) {
+    public void writeStackAlloc(String type, String name, Object... args) throws BlockException {
         writeIndent();
         writef("%1$s %2$s = %1$s(");
-
-        boolean first = true;
-        for (String arg : args) {
-            if (first) {
-                first = false;
-                write(arg);
-            } else writef(", %s", arg);
-        }
-
+        writeArgList(args);
         write(");\n");
     }
 
@@ -71,7 +58,18 @@ public class CodeEmitter {
         write("}\n");
     }
 
-    private void write(String str) {
+    String getCode() {
+        return builder.toString();
+    }
+
+    void pipe(CodeEmitter out) {
+        for (String line : getCode().split("\n")) {
+            out.writeIndent();
+            out.writef("%s\n", line);
+        }
+    }
+
+    public void write(String str) {
         builder.append(str);
     }
 
@@ -84,15 +82,26 @@ public class CodeEmitter {
             write(" ");
     }
 
-    String getCode() {
-        return builder.toString();
+    private void writeObject(Object object) throws BlockException {
+        if (object instanceof String)
+            write((String) object);
+        else if (object instanceof Block)
+            ((Block) object).write(null, this);
+        else throw new BlockException("Unsupported object " + object.getClass().getName());
     }
 
-    void pipe(CodeEmitter out) {
-        for (String line : getCode().split("\n")) {
-            out.writeIndent();
-            out.writef("%s\n", line);
+    private void writeArgList(Object... args) throws BlockException {
+        boolean first = true;
+        for (Object arg : args) {
+            if (first) {
+                first = false;
+                writeObject(arg);
+            } else {
+                write(", ");
+                writeObject(arg);
+            }
         }
+
     }
 
 }
