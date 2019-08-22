@@ -28,7 +28,7 @@
     </ToolBar>
     <SplitPane dividerPositions="0.25" focusTraversable="true" VBox.vgrow="ALWAYS">
         <TreeView VBox.vgrow="ALWAYS" fx:id="blocksTreeView"/>
-        <AnchorPane VBox.vgrow="ALWAYS" style="-fx-background-color: #4f4f4f">
+        <AnchorPane VBox.vgrow="ALWAYS" style="-fx-background-color: #4f4f4f" fx:id="canvasContainer">
             <Canvas fx:id="mainCanvas" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
                     AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0"/>
