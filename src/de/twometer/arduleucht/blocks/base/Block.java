@@ -58,7 +58,7 @@ public abstract class Block {
         this.parent = parent;
     }
 
-    private List<BlockSocket> getSockets() {
+    public List<BlockSocket> getSockets() {
         return sockets;
     }
 

@@ -29,7 +29,7 @@ public class UploadController {
         loader.setResources(ResourceBundle.getBundle("bundles.gui"));
 
         Parent root = loader.load();
-        new JMetro(JMetro.Style.DARK).applyTheme(root);
+        new JMetro(JMetro.Style.LIGHT).applyTheme(root);
 
         UploadController controller = loader.getController();
         controller.stage = stage;

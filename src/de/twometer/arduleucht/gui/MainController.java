@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements I18nResolver {
 
     @SuppressWarnings("WeakerAccess") // Let the FXML Loader access this field!
     public ResourceBundle resources;
@@ -74,8 +74,9 @@ public class MainController {
         if (currentProject == null) return;
         GraphicsContext gc = mainCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
-        for (Block block : currentProject.getTopLevelBlocks())
-            block.getShape().draw(gc);
+        for (Block block : currentProject.getTopLevelBlocks()) {
+            block.getShape().draw(gc, this);
+        }
     }
 
     @FXML
@@ -193,7 +194,7 @@ public class MainController {
         return new Image(ResourceLoader.getResourceAsStream(category.getIconPath()));
     }
 
-    private String i18n(String key) {
+    public String i18n(String key) {
         return resources.getString(key);
     }
 

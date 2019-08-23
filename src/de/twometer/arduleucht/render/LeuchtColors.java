@@ -14,4 +14,6 @@ public interface LeuchtColors {
 
     Color RED = Color.rgb(231, 76, 60);
 
+    Color ASPHALT = Color.rgb(52, 73, 94);
+
 }

@@ -1,6 +1,7 @@
 package de.twometer.arduleucht.blocks.model;
 
 import de.twometer.arduleucht.blocks.base.Block;
+import de.twometer.arduleucht.render.BlockSocketShape;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -18,10 +19,13 @@ public class BlockSocket {
 
     private boolean allowsMultiple;
 
+    private BlockSocketShape shape;
+
     public BlockSocket(Block sourceBlock, String name, BlockType allowedType) {
         this.sourceBlock = sourceBlock;
         this.name = name;
         this.allowedTypes = EnumSet.of(allowedType);
+        this.shape = new BlockSocketShape(this);
     }
 
     public BlockSocket(String name, EnumSet<BlockType> allowedTypes) {
@@ -79,4 +83,7 @@ public class BlockSocket {
         return values;
     }
 
+    public BlockSocketShape getShape() {
+        return shape;
+    }
 }
