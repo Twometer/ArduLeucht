@@ -53,10 +53,12 @@ public class MainController implements I18nResolver {
         canvasContainer.setOnDragDropped(event -> {
             boolean success = event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT);
 
+
             if (success) {
                 Tagged tagged = (Tagged) event.getDragboard().getContent(DragCellFactory.DATA_FORMAT);
                 Block block = BlockRegistry.createBlock(tagged.getTag());
                 if (block == null) return;
+                block.getShape().setPosition((int) event.getX(), (int) event.getY());
                 currentProject.getTopLevelBlocks().add(block);
                 render();
             }

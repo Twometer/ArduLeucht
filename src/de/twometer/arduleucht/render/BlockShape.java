@@ -19,9 +19,9 @@ public class BlockShape {
 
     private Block block;
 
-    private int x = 60;
+    private int x;
 
-    private int y = 60;
+    private int y;
 
     private int width;
 
@@ -142,6 +142,11 @@ public class BlockShape {
             context.fillText(socket.getName(), x + width - SOCKET_WIDTH - TEXT_PADDING - textSize.getWidth(), this.y + yo + socket.getShape().getHeight() / 2d);
             yo += socket.getShape().getHeight() + SOCKET_PADDING;
         }
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     int getHeight() {
