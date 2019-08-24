@@ -10,6 +10,10 @@ public class BlockSocketShape {
 
     private BlockSocket socket;
 
+    private int originX;
+
+    private int originY;
+
     private int height;
 
     public BlockSocketShape(BlockSocket socket) {
@@ -28,5 +32,16 @@ public class BlockSocketShape {
         return height;
     }
 
+    void setOrigin(int x, int y) {
+        this.originX = x;
+        this.originY = y;
+    }
 
+    int getOriginX() {
+        return originX;
+    }
+
+    int getOriginY() {
+        return originY;
+    }
 }

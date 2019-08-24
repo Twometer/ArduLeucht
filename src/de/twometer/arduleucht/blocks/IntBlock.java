@@ -8,7 +8,12 @@ import de.twometer.arduleucht.codegen.CodeEmitter;
 public class IntBlock extends ConstantBlock<Integer> {
 
     public IntBlock() {
+        this(0);
+    }
+
+    IntBlock(int value) {
         super("blocks.variable.integer", BlockCategory.VARIABLES, BlockType.CONSTANT, int.class);
+        setValue(value);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package de.twometer.arduleucht.render;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 import de.twometer.arduleucht.blocks.base.Block;
+import de.twometer.arduleucht.blocks.base.ConstantBlock;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.blocks.model.BlockType;
 import de.twometer.arduleucht.gui.I18nResolver;
@@ -10,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
+import javax.xml.soap.Text;
 import java.util.UUID;
 
 public class BlockShape {
@@ -37,7 +40,6 @@ public class BlockShape {
     }
 
     void layout(I18nResolver resolver) {
-
         width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
         for (BlockSocket socket : block.getSockets()) {
             socket.getShape().layout(resolver);
@@ -62,10 +64,42 @@ public class BlockShape {
                 break;
             case CONSTANT:
                 context.setFill(LeuchtColors.BLUE);
+                break;
             case OPERATION:
                 context.setFill(LeuchtColors.GREEN);
                 break;
         }
+
+        if (block instanceof ConstantBlock)
+            drawConstant(context, resolver);
+        else
+            drawRegular(context, resolver);
+
+        for (BlockSocket socket : block.getSockets()) {
+            int yOffset = socket.getShape().getOriginY();
+            for (Block block : socket.values()) {
+                block.getShape().x = socket.getShape().getOriginX();
+                block.getShape().y = yOffset;
+                block.getShape().draw(context, resolver);
+                yOffset += block.getShape().getHeight();
+            }
+        }
+    }
+
+    private void drawConstant(GraphicsContext context, I18nResolver resolver) {
+        Bounds textBounds = TextMetrics.getInstance().measure("value");
+        this.height = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
+        Polygon polygon = new Polygon(this.x, this.y);
+        polygon.addPoint(0, this.height / 2d);
+        polygon.addPoint(SOCKET_WIDTH, 0);
+        polygon.addPoint(SOCKET_WIDTH + this.width, 0);
+        polygon.addPoint(2 * SOCKET_WIDTH + this.width, this.height / 2d);
+        polygon.addPoint(SOCKET_WIDTH + this.width, this.height);
+        polygon.addPoint(SOCKET_WIDTH, this.height);
+        polygon.render(context);
+    }
+
+    private void drawRegular(GraphicsContext context, I18nResolver resolver) {
 
         Polygon polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, 0);
@@ -77,12 +111,14 @@ public class BlockShape {
 
             if (socket.getAllowedTypes().contains(BlockType.METHOD)) {
                 polygon.addPoint(width - SOCKET_WIDTH, yo);
+                socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, yo);
                 yo += socket.getShape().getHeight();
                 polygon.addPoint(width - SOCKET_WIDTH, yo);
                 polygon.addPoint(width, yo);
             } else {
                 int socketHeight = socket.getShape().getHeight();
                 polygon.addPoint(width - SOCKET_WIDTH, yo + (socketHeight / 2d));
+                socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, yo);
                 yo += socketHeight;
                 polygon.addPoint(width, yo);
             }
