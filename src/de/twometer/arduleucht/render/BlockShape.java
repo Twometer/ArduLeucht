@@ -5,11 +5,15 @@ import de.twometer.arduleucht.blocks.base.ConstantBlock;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.blocks.model.BlockType;
 import de.twometer.arduleucht.gui.I18nResolver;
+import de.twometer.arduleucht.render.api.Polygon;
+import de.twometer.arduleucht.render.api.TextMetrics;
 import javafx.geometry.Bounds;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+
+import java.util.UUID;
 
 public class BlockShape {
 
@@ -18,6 +22,12 @@ public class BlockShape {
     private static final int SOCKET_PADDING = 25;
 
     private Block block;
+
+    private static UUID selectedId = null;
+
+    private UUID shapeId = UUID.randomUUID();
+
+    private Polygon polygon;
 
     private int x;
 
@@ -89,7 +99,7 @@ public class BlockShape {
     }
 
     private void drawConstant(GraphicsContext context, I18nResolver resolver) {
-        Polygon polygon = new Polygon(this.x, this.y);
+        polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, this.height / 2d);
         polygon.addPoint(SOCKET_WIDTH, 0);
         polygon.addPoint(SOCKET_WIDTH + this.width, 0);
@@ -100,7 +110,7 @@ public class BlockShape {
     }
 
     private void drawRegular(GraphicsContext context, I18nResolver resolver) {
-        Polygon polygon = new Polygon(this.x, this.y);
+        polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, 0);
         polygon.addPoint(width, 0);
 
@@ -151,5 +161,13 @@ public class BlockShape {
 
     int getHeight() {
         return height;
+    }
+
+    public void select() {
+        selectedId = this.shapeId;
+    }
+
+    public Polygon getPolygon() {
+        return polygon;
     }
 }

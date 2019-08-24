@@ -3,10 +3,12 @@ package de.twometer.arduleucht.model;
 import de.twometer.arduleucht.blocks.ProgramBlock;
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockException;
+import de.twometer.arduleucht.blocks.model.BlockSocket;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Project {
 
@@ -35,6 +37,22 @@ public class Project {
             if (block instanceof ProgramBlock)
                 return (ProgramBlock) block;
         throw new BlockException("No program block in project");
+    }
+
+    public void iterateAllBlocks(Consumer<Block> blockConsumer) {
+        for (Block block : topLevelBlocks) {
+            blockConsumer.accept(block);
+            iterateBlocks(block, blockConsumer);
+        }
+    }
+
+    private void iterateBlocks(Block parentBlock, Consumer<Block> consumer) {
+        for (BlockSocket socket : parentBlock.getSockets()) {
+            for (Block block : socket.values()) {
+                consumer.accept(block);
+                iterateBlocks(block, consumer);
+            }
+        }
     }
 
     public List<Block> getTopLevelBlocks() {

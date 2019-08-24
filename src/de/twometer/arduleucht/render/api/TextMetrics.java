@@ -1,11 +1,11 @@
-package de.twometer.arduleucht.render;
+package de.twometer.arduleucht.render.api;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 
-class TextMetrics {
+public class TextMetrics {
 
     private static TextMetrics instance;
 
@@ -16,12 +16,12 @@ class TextMetrics {
         new Scene(new Group(text));
     }
 
-    static TextMetrics getInstance() {
+    public static TextMetrics getInstance() {
         if (instance == null) instance = new TextMetrics();
         return instance;
     }
 
-    Bounds measure(String text) {
+    public Bounds measure(String text) {
         this.text.setText(text);
         this.text.applyCss();
         return this.text.getLayoutBounds();

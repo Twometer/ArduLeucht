@@ -8,6 +8,7 @@ import de.twometer.arduleucht.build.ProjectBuilder;
 import de.twometer.arduleucht.build.event.BuildListener;
 import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
+import de.twometer.arduleucht.render.api.Point;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
 import javafx.application.Platform;
@@ -43,16 +44,15 @@ public class MainController implements I18nResolver {
         blocksTreeView.setCellFactory(new DragCellFactory());
 
         canvasContainer.setPannable(true);
-        canvasContainer.setOnDragOver(event -> {
+        mainCanvas.setOnDragOver(event -> {
             if (!event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT))
                 return;
             event.acceptTransferModes(TransferMode.COPY);
             event.consume();
         });
 
-        canvasContainer.setOnDragDropped(event -> {
+        mainCanvas.setOnDragDropped(event -> {
             boolean success = event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT);
-
 
             if (success) {
                 Tagged tagged = (Tagged) event.getDragboard().getContent(DragCellFactory.DATA_FORMAT);
@@ -65,6 +65,17 @@ public class MainController implements I18nResolver {
 
             event.setDropCompleted(success);
             event.consume();
+        });
+
+        mainCanvas.setOnMouseClicked(event -> {
+            Point clickPoint = new Point(event.getX(), event.getY());
+            if (currentProject != null)
+                currentProject.iterateAllBlocks(block -> {
+                    if (block.getShape().getPolygon().test(clickPoint)) {
+                        block.getShape().select(); // TODO Missing shape renderer
+                        render();
+                    }
+                });
         });
 
         loadTreeView();
