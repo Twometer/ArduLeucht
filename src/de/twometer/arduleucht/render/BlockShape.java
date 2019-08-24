@@ -8,6 +8,7 @@ import de.twometer.arduleucht.gui.I18nResolver;
 import javafx.geometry.Bounds;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
 public class BlockShape {
@@ -53,6 +54,10 @@ public class BlockShape {
 
     public void draw(GraphicsContext context, I18nResolver resolver) {
         layout(resolver);
+
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.rgb(0, 0, 0, .5));
+        context.setEffect(shadow);
 
         switch (block.getType()) {
             case METHOD:
