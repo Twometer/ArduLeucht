@@ -8,10 +8,7 @@ import de.twometer.arduleucht.gui.I18nResolver;
 import javafx.geometry.Bounds;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
-
-import java.util.UUID;
 
 public class BlockShape {
 
@@ -19,17 +16,13 @@ public class BlockShape {
     private static final int SOCKET_WIDTH = 15;
     private static final int SOCKET_PADDING = 25;
 
-    private static UUID currentSelectedShape = null;
-
-    private UUID shapeId = UUID.randomUUID();
-
     private Block block;
 
-    private int x = 10;
+    private int x = 60;
 
-    private int y = 10;
+    private int y = 60;
 
-    private int width = 100;
+    private int width;
 
     private int height;
 
@@ -39,8 +32,18 @@ public class BlockShape {
 
     void layout(I18nResolver resolver) {
         width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
+        height = 10;
+
+        if (block instanceof ConstantBlock) {
+            Bounds textBounds = TextMetrics.getInstance().measure("value_here");
+            this.height = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
+            return;
+        }
+
         for (BlockSocket socket : block.getSockets()) {
             socket.getShape().layout(resolver);
+
+            height += socket.getShape().getHeight() + SOCKET_PADDING;
 
             double curWidth = TextMetrics.getInstance().measure(socket.getName()).getWidth() + SOCKET_WIDTH + TEXT_PADDING * 2;
             if (curWidth > width)
@@ -50,8 +53,6 @@ public class BlockShape {
 
     public void draw(GraphicsContext context, I18nResolver resolver) {
         layout(resolver);
-
-        context.setEffect(new DropShadow());
 
         switch (block.getType()) {
             case METHOD:
@@ -71,9 +72,10 @@ public class BlockShape {
             drawRegular(context, resolver);
 
         for (BlockSocket socket : block.getSockets()) {
+            int xOffset = socket.getShape().getOriginX();
             int yOffset = socket.getShape().getOriginY();
             for (Block block : socket.values()) {
-                block.getShape().x = socket.getShape().getOriginX();
+                block.getShape().x = xOffset;
                 block.getShape().y = yOffset;
                 block.getShape().draw(context, resolver);
                 yOffset += block.getShape().getHeight();
@@ -82,8 +84,6 @@ public class BlockShape {
     }
 
     private void drawConstant(GraphicsContext context, I18nResolver resolver) {
-        Bounds textBounds = TextMetrics.getInstance().measure("value");
-        this.height = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
         Polygon polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, this.height / 2d);
         polygon.addPoint(SOCKET_WIDTH, 0);
@@ -95,7 +95,6 @@ public class BlockShape {
     }
 
     private void drawRegular(GraphicsContext context, I18nResolver resolver) {
-
         Polygon polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, 0);
         polygon.addPoint(width, 0);
@@ -106,14 +105,14 @@ public class BlockShape {
 
             if (socket.getAllowedTypes().contains(BlockType.METHOD)) {
                 polygon.addPoint(width - SOCKET_WIDTH, yo);
-                socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, yo);
+                socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, this.y + yo);
                 yo += socket.getShape().getHeight();
                 polygon.addPoint(width - SOCKET_WIDTH, yo);
                 polygon.addPoint(width, yo);
             } else {
                 int socketHeight = socket.getShape().getHeight();
                 polygon.addPoint(width - SOCKET_WIDTH, yo + (socketHeight / 2d));
-                socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, yo);
+                socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, this.y + yo);
                 yo += socketHeight;
                 polygon.addPoint(width, yo);
             }
@@ -121,8 +120,6 @@ public class BlockShape {
             yo += SOCKET_PADDING;
             if (socket != block.getSockets().get(block.getSockets().size() - 1)) polygon.addPoint(width, yo);
         }
-
-        height = yo;
 
         polygon.addPoint(width, yo - (SOCKET_PADDING - 5));
         polygon.addPoint(0, yo - (SOCKET_PADDING - 5));
@@ -140,14 +137,6 @@ public class BlockShape {
             context.fillText(socket.getName(), x + width - SOCKET_WIDTH - TEXT_PADDING - textSize.getWidth(), this.y + yo + socket.getShape().getHeight() / 2d);
             yo += socket.getShape().getHeight() + SOCKET_PADDING;
         }
-    }
-
-    private boolean isSelected() {
-        return shapeId.equals(currentSelectedShape);
-    }
-
-    public void select() {
-        currentSelectedShape = shapeId;
     }
 
     int getHeight() {

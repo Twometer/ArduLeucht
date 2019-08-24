@@ -21,11 +21,12 @@ public class BlockSocketShape {
     }
 
     void layout(I18nResolver resolver) {
-        height = MIN_HEIGHT;
+        int height = 0;
         for (Block block : socket.values()) {
             block.getShape().layout(resolver);
             height += block.getShape().getHeight();
         }
+        this.height = Math.max(MIN_HEIGHT, height);
     }
 
     int getHeight() {

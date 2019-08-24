@@ -66,7 +66,6 @@ public class MainController implements I18nResolver {
         });
 
         loadTreeView();
-
         render();
     }
 

@@ -34,7 +34,7 @@ public class CodeEmitter {
 
     public void writeStackAlloc(String type, String name, Object... args) throws BlockException {
         writeIndent();
-        writef("%1$s %2$s = %1$s(");
+        writef("%1$s %2$s = %1$s(", type, name);
         writeArgList(args);
         write(");\n");
     }
