@@ -51,7 +51,7 @@ public class CodeEmitter {
         indent++;
     }
 
-    void closeBlock() {
+    public void closeBlock() {
         indent--;
         writeIndent();
 
@@ -62,7 +62,7 @@ public class CodeEmitter {
         return builder.toString();
     }
 
-    void pipe(CodeEmitter out) {
+    public void pipe(CodeEmitter out) {
         for (String line : getCode().split("\n")) {
             out.writeIndent();
             out.writef("%s\n", line);

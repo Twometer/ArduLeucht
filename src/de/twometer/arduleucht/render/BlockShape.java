@@ -1,6 +1,5 @@
 package de.twometer.arduleucht.render;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.base.ConstantBlock;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
@@ -12,7 +11,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
-import javax.xml.soap.Text;
 import java.util.UUID;
 
 public class BlockShape {
@@ -59,10 +57,7 @@ public class BlockShape {
             case METHOD:
                 context.setFill(LeuchtColors.ORANGE);
                 break;
-            case VARIABLE:
-                context.setFill(LeuchtColors.PURPLE);
-                break;
-            case CONSTANT:
+            case DATA:
                 context.setFill(LeuchtColors.BLUE);
                 break;
             case OPERATION:

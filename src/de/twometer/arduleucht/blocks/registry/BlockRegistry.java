@@ -1,9 +1,6 @@
 package de.twometer.arduleucht.blocks.registry;
 
-import de.twometer.arduleucht.blocks.IntBlock;
-import de.twometer.arduleucht.blocks.ProgramBlock;
-import de.twometer.arduleucht.blocks.SetPixelBlock;
-import de.twometer.arduleucht.blocks.TetrapixInitBlock;
+import de.twometer.arduleucht.blocks.*;
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 
@@ -16,7 +13,9 @@ public class BlockRegistry {
             new ProgramBlock(),
             new SetPixelBlock(),
             new TetrapixInitBlock(),
-            new IntBlock()
+            new IntBlock(),
+            new ForBlock(),
+            new VariableRefBlock()
     };
 
     public static List<BlockInfo> getBlocks(BlockCategory category) {

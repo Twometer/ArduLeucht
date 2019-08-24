@@ -4,7 +4,6 @@ public enum BlockType {
 
     METHOD,
     OPERATION,
-    VARIABLE,
-    CONSTANT
+    DATA
 
 }

@@ -4,7 +4,7 @@ public enum BlockCategory {
 
     TETRAPIX("category.tetrapix", "icons/category-tetrapix.png"),
     CONTROL("category.control", "icons/category-control.png"),
-    VARIABLES("category.variables", "icons/category-var.png");
+    DATA("category.data", "icons/category-data.png");
 
     private String name;
 

@@ -11,10 +11,10 @@ public class SetPixelBlock extends Block {
 
     public SetPixelBlock() {
         super("blocks.tetrapix.set_pixel", BlockCategory.TETRAPIX, BlockType.METHOD);
-        addSocket("number", BlockType.CONSTANT).setValue(new IntBlock(0));
-        addSocket("red", BlockType.CONSTANT).setValue(new IntBlock(255));
-        addSocket("green", BlockType.CONSTANT).setValue(new IntBlock(255));
-        addSocket("blue", BlockType.CONSTANT).setValue(new IntBlock(255));
+        addSocket("number", BlockType.DATA).setValue(new IntBlock(0));
+        addSocket("red", BlockType.DATA).setValue(new IntBlock(255));
+        addSocket("green", BlockType.DATA).setValue(new IntBlock(255));
+        addSocket("blue", BlockType.DATA).setValue(new IntBlock(255));
     }
 
     @Override
