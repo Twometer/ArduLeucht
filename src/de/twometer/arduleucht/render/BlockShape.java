@@ -169,6 +169,18 @@ public class BlockShape {
         return selectedId == this.shapeId;
     }
 
+    public UUID getShapeId() {
+        return shapeId;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public void select() {
         selectedId = this.shapeId;
     }

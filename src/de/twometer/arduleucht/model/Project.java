@@ -4,10 +4,12 @@ import de.twometer.arduleucht.blocks.ProgramBlock;
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
+import de.twometer.arduleucht.util.Wrapper;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class Project {
@@ -37,6 +39,15 @@ public class Project {
             if (block instanceof ProgramBlock)
                 return (ProgramBlock) block;
         throw new BlockException("No program block in project");
+    }
+
+    public Block findBlock(UUID shapeId) {
+        Wrapper<Block> block = new Wrapper<>();
+        iterateAllBlocks(testBlock -> {
+            if (testBlock.getShape().getShapeId() == shapeId)
+                block.set(testBlock);
+        });
+        return block.get();
     }
 
     public void iterateAllBlocks(Consumer<Block> blockConsumer) {

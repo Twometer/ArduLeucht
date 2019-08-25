@@ -25,6 +25,7 @@ import javafx.scene.input.TransferMode;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class MainController implements I18nResolver {
 
@@ -69,23 +70,41 @@ public class MainController implements I18nResolver {
             event.consume();
         });
 
-        mainCanvas.setOnMouseClicked(event -> {
+        Wrapper<Point> dragOrigin = new Wrapper<>();
+        mainCanvas.setOnMousePressed(event -> {
+            if (currentProject == null) return;
+
             Point clickPoint = new Point(event.getX(), event.getY());
-            if (currentProject != null) {
-                Wrapper<Boolean> hasClicked = new Wrapper<>(false);
-                currentProject.iterateAllBlocks(block -> {
-                    if (block.getShape().getPolygon().test(clickPoint)) {
-                        block.getShape().select();
-                        hasClicked.set(true);
-                        render();
-                    }
-                });
-                if (!hasClicked.get()) {
-                    BlockShape.clearSelection();
+            Wrapper<Boolean> hasClicked = new Wrapper<>(false);
+            currentProject.iterateAllBlocks(block -> {
+                if (block.getShape().getPolygon().test(clickPoint)) {
+                    block.getShape().select();
+                    dragOrigin.set(new Point(block.getShape().getX() - event.getX(), block.getShape().getY() - event.getY()));
+                    hasClicked.set(true);
                     render();
                 }
+            });
+
+            if (hasClicked.get()) {
+                canvasContainer.setPannable(false);
+            } else {
+                BlockShape.clearSelection();
+                render();
+            }
+
+        });
+
+        mainCanvas.setOnMouseReleased(event -> canvasContainer.setPannable(true));
+
+        mainCanvas.setOnMouseDragged(event -> {
+            UUID selectedBlock = BlockShape.getSelectedBlock();
+            if (currentProject != null && selectedBlock != null) {
+                Block block = currentProject.findBlock(selectedBlock);
+                block.getShape().setPosition((int) (event.getX() + dragOrigin.get().getX()), (int) (event.getY() + dragOrigin.get().getY()));
+                render();
             }
         });
+
 
         loadTreeView();
         render();

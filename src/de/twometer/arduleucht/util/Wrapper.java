@@ -19,4 +19,7 @@ public class Wrapper<T> {
         this.value = value;
     }
 
+    public void set(Wrapper<T> wrapper) {
+        set(wrapper.get());
+    }
 }
