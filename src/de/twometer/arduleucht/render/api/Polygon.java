@@ -1,7 +1,7 @@
 package de.twometer.arduleucht.render.api;
 
-import de.twometer.arduleucht.render.LeuchtColors;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Polygon {
         this.points.add(new Point(x + xo + 0.5, y + yo + 0.5));
     }
 
-    public void render(GraphicsContext ctx) {
+    public void render(GraphicsContext ctx, Paint stroke) {
         double[] x = new double[points.size()];
         double[] y = new double[points.size()];
 
@@ -36,7 +36,7 @@ public class Polygon {
         ctx.fillPolygon(x, y, points.size());
 
         ctx.setEffect(null);
-        ctx.setStroke(LeuchtColors.ASPHALT);
+        ctx.setStroke(stroke);
         ctx.strokePolygon(x, y, points.size());
     }
 

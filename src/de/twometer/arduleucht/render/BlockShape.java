@@ -106,7 +106,8 @@ public class BlockShape {
         polygon.addPoint(2 * SOCKET_WIDTH + this.width, this.height / 2d);
         polygon.addPoint(SOCKET_WIDTH + this.width, this.height);
         polygon.addPoint(SOCKET_WIDTH, this.height);
-        polygon.render(context);
+        context.setLineWidth(isSelected() ? 2 : 1);
+        polygon.render(context, isSelected() ? LeuchtColors.SILVER : LeuchtColors.ASPHALT);
     }
 
     private void drawRegular(GraphicsContext context, I18nResolver resolver) {
@@ -138,7 +139,8 @@ public class BlockShape {
 
         polygon.addPoint(width, yo - (SOCKET_PADDING - 5));
         polygon.addPoint(0, yo - (SOCKET_PADDING - 5));
-        polygon.render(context);
+        context.setLineWidth(isSelected() ? 2 : 1);
+        polygon.render(context, isSelected() ? LeuchtColors.SILVER : LeuchtColors.ASPHALT);
 
         context.setFill(Color.WHITE);
         context.setTextBaseline(VPos.TOP);
@@ -161,6 +163,10 @@ public class BlockShape {
 
     int getHeight() {
         return height;
+    }
+
+    private boolean isSelected() {
+        return selectedId == this.shapeId;
     }
 
     public void select() {

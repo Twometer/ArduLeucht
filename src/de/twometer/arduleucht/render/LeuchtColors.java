@@ -16,4 +16,6 @@ public interface LeuchtColors {
 
     Color ASPHALT = Color.rgb(52, 73, 94);
 
+    Color SILVER = Color.rgb(189, 195, 199);
+
 }
