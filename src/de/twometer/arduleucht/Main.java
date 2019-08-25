@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import jfxtras.styles.jmetro8.JMetro;
 
@@ -28,6 +29,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(ResourceLoader.getResource("css/main.css").toExternalForm());
 
+        primaryStage.getIcons().add(new Image(ResourceLoader.getResourceAsStream("icons/main.png")));
         primaryStage.setTitle(BuildInfo.buildTitle());
         primaryStage.setScene(scene);
         primaryStage.show();

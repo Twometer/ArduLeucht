@@ -8,9 +8,11 @@ import de.twometer.arduleucht.build.ProjectBuilder;
 import de.twometer.arduleucht.build.event.BuildListener;
 import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
+import de.twometer.arduleucht.render.BlockShape;
 import de.twometer.arduleucht.render.api.Point;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
+import de.twometer.arduleucht.util.Wrapper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -69,13 +71,20 @@ public class MainController implements I18nResolver {
 
         mainCanvas.setOnMouseClicked(event -> {
             Point clickPoint = new Point(event.getX(), event.getY());
-            if (currentProject != null)
+            if (currentProject != null) {
+                Wrapper<Boolean> hasClicked = new Wrapper<>(false);
                 currentProject.iterateAllBlocks(block -> {
                     if (block.getShape().getPolygon().test(clickPoint)) {
-                        block.getShape().select(); // TODO Missing shape renderer
+                        block.getShape().select();
+                        hasClicked.set(true);
                         render();
                     }
                 });
+                if (!hasClicked.get()) {
+                    BlockShape.clearSelection();
+                    render();
+                }
+            }
         });
 
         loadTreeView();

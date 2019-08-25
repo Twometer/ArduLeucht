@@ -173,6 +173,14 @@ public class BlockShape {
         selectedId = this.shapeId;
     }
 
+    public static UUID getSelectedBlock() {
+        return selectedId;
+    }
+
+    public static void clearSelection() {
+        selectedId = null;
+    }
+
     public Polygon getPolygon() {
         return polygon;
     }
