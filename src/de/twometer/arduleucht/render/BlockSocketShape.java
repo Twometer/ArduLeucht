@@ -3,6 +3,7 @@ package de.twometer.arduleucht.render;
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.gui.I18nResolver;
+import de.twometer.arduleucht.render.api.Point;
 
 public class BlockSocketShape {
 
@@ -10,9 +11,7 @@ public class BlockSocketShape {
 
     private BlockSocket socket;
 
-    private int originX;
-
-    private int originY;
+    private Point origin;
 
     private int height;
 
@@ -34,15 +33,14 @@ public class BlockSocketShape {
     }
 
     void setOrigin(int x, int y) {
-        this.originX = x;
-        this.originY = y;
+        this.origin = new Point(x, y);
     }
 
     int getOriginX() {
-        return originX;
+        return (int) origin.getX();
     }
 
     int getOriginY() {
-        return originY;
+        return (int) origin.getY();
     }
 }

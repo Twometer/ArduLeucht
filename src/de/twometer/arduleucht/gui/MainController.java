@@ -94,13 +94,22 @@ public class MainController implements I18nResolver {
 
         });
 
-        mainCanvas.setOnMouseReleased(event -> canvasContainer.setPannable(true));
+        mainCanvas.setOnMouseReleased(event -> {
+            canvasContainer.setPannable(true);
+            UUID selectedBlock = BlockShape.getSelectedBlock();
+            if (selectedBlock != null) {
+                Block block = currentProject.findBlock(selectedBlock);
+                block.getShape().setDragging(false);
+                render();
+            }
+        });
 
         mainCanvas.setOnMouseDragged(event -> {
             UUID selectedBlock = BlockShape.getSelectedBlock();
             if (currentProject != null && selectedBlock != null) {
                 Block block = currentProject.findBlock(selectedBlock);
                 block.getShape().setPosition((int) (event.getX() + dragOrigin.get().getX()), (int) (event.getY() + dragOrigin.get().getY()));
+                block.getShape().setDragging(true);
                 render();
             }
         });

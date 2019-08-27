@@ -37,6 +37,8 @@ public class BlockShape {
 
     private int height;
 
+    private boolean isDragging;
+
     public BlockShape(Block block) {
         this.block = block;
     }
@@ -81,10 +83,12 @@ public class BlockShape {
                 break;
         }
 
+        context.setGlobalAlpha(isDragging ? 0.5 : 1.0);
         if (block instanceof ConstantBlock)
             drawConstant(context, resolver);
         else
             drawRegular(context, resolver);
+        context.setGlobalAlpha(1.0);
 
         for (BlockSocket socket : block.getSockets()) {
             int xOffset = socket.getShape().getOriginX();
@@ -183,6 +187,10 @@ public class BlockShape {
 
     public void select() {
         selectedId = this.shapeId;
+    }
+
+    public void setDragging(boolean dragging) {
+        isDragging = dragging;
     }
 
     public static UUID getSelectedBlock() {
