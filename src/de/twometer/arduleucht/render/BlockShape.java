@@ -191,6 +191,9 @@ public class BlockShape {
 
     public void setDragging(boolean dragging) {
         isDragging = dragging;
+        for (BlockSocket socket : block.getSockets())
+            for (Block child : socket.values())
+                child.getShape().setDragging(dragging);
     }
 
     public static UUID getSelectedBlock() {

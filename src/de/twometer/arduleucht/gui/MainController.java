@@ -92,6 +92,15 @@ public class MainController implements I18nResolver {
                 render();
             }
 
+            UUID selectedBlock = BlockShape.getSelectedBlock();
+            if (selectedBlock != null) {
+                Block block = currentProject.findBlock(selectedBlock);
+                if (currentProject.getTopLevelBlocks().contains(block)) {
+                    currentProject.getTopLevelBlocks().remove(block);
+                    currentProject.getTopLevelBlocks().add(block);
+                }
+                render();
+            }
         });
 
         mainCanvas.setOnMouseReleased(event -> {
