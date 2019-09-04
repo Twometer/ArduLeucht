@@ -4,6 +4,8 @@ import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.base.ConstantBlock;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.blocks.model.BlockType;
+import de.twometer.arduleucht.gui.DragArea;
+import de.twometer.arduleucht.gui.DragController;
 import de.twometer.arduleucht.gui.I18nResolver;
 import de.twometer.arduleucht.render.api.Polygon;
 import de.twometer.arduleucht.render.api.TextMetrics;
@@ -43,7 +45,7 @@ public class BlockShape {
         this.block = block;
     }
 
-    void layout(I18nResolver resolver) {
+    void layout(DragController dragController, I18nResolver resolver) {
         width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
         height = 10;
 
@@ -53,8 +55,9 @@ public class BlockShape {
             return;
         }
 
+
         for (BlockSocket socket : block.getSockets()) {
-            socket.getShape().layout(resolver);
+            socket.getShape().layout(dragController, resolver);
 
             height += socket.getShape().getHeight() + SOCKET_PADDING;
 
@@ -62,10 +65,26 @@ public class BlockShape {
             if (curWidth > width)
                 width = (int) curWidth;
         }
+
+        // Calculate drag areas
+        int xo = width - SOCKET_WIDTH;
+        int yo = SOCKET_PADDING + 5;
+        for (BlockSocket socket : block.getSockets()) {
+            if (socket.values().size() > 0)
+                for (Block block : socket.values()) {
+                    dragController.addDragArea(new DragArea(block, xo, yo, width - xo, 5, socket::addValue));
+                    yo += block.getShape().getHeight();
+                }
+            else {
+                dragController.addDragArea(new DragArea(block, xo, yo, SOCKET_WIDTH, 25, socket::addValue));
+                yo += 25;
+            }
+            yo += SOCKET_PADDING;
+        }
     }
 
-    public void draw(GraphicsContext context, I18nResolver resolver) {
-        layout(resolver);
+    public void draw(GraphicsContext context, DragController dragController, I18nResolver resolver) {
+        layout(dragController, resolver);
 
         DropShadow shadow = new DropShadow();
         shadow.setColor(Color.rgb(0, 0, 0, .5));
@@ -96,7 +115,7 @@ public class BlockShape {
             for (Block block : socket.values()) {
                 block.getShape().x = xOffset;
                 block.getShape().y = yOffset;
-                block.getShape().draw(context, resolver);
+                block.getShape().draw(context, dragController, resolver);
                 yOffset += block.getShape().getHeight();
             }
         }

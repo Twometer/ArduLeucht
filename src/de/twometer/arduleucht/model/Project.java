@@ -69,4 +69,8 @@ public class Project {
     public List<Block> getTopLevelBlocks() {
         return topLevelBlocks;
     }
+
+    public void removeTopLevelBlock(Block block) {
+        topLevelBlocks.remove(block);
+    }
 }

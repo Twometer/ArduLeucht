@@ -2,6 +2,7 @@ package de.twometer.arduleucht.gui;
 
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
+import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
 import de.twometer.arduleucht.blocks.registry.BlockRegistry;
 import de.twometer.arduleucht.build.ProjectBuilder;
@@ -9,6 +10,7 @@ import de.twometer.arduleucht.build.event.BuildListener;
 import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.render.BlockShape;
+import de.twometer.arduleucht.render.LeuchtColors;
 import de.twometer.arduleucht.render.api.Point;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
@@ -21,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +42,8 @@ public class MainController implements I18nResolver {
     public ScrollPane canvasContainer;
 
     private Project currentProject;
+
+    private DragController dragController = new DragController();
 
     private boolean dirty = false;
 
@@ -117,8 +122,20 @@ public class MainController implements I18nResolver {
             UUID selectedBlock = BlockShape.getSelectedBlock();
             if (currentProject != null && selectedBlock != null) {
                 Block block = currentProject.findBlock(selectedBlock);
+                if (block == null) return;
                 block.getShape().setPosition((int) (event.getX() + dragOrigin.get().getX()), (int) (event.getY() + dragOrigin.get().getY()));
                 block.getShape().setDragging(true);
+                for (DragArea area : dragController.getDragAreas()) {
+                    if (area.isOver((int) event.getX(), (int) event.getY()) && block.getParent() == null && area.getSrcBlock() != block) {
+                        try {
+                            area.getDraggedHandler().onDragged(block);
+                            currentProject.removeTopLevelBlock(block);
+                        } catch (BlockException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
                 render();
             }
         });
@@ -132,8 +149,15 @@ public class MainController implements I18nResolver {
         if (currentProject == null) return;
         GraphicsContext gc = mainCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
+
+        dragController.reset();
         for (Block block : currentProject.getTopLevelBlocks()) {
-            block.getShape().draw(gc, this);
+            block.getShape().draw(gc, dragController, this);
+        }
+
+        gc.setFill(LeuchtColors.PURPLE);
+        for (DragArea area : dragController.getDragAreas()) {
+            gc.fillRect(area.getSrcBlock().getShape().getX() + area.getX(), area.getSrcBlock().getShape().getY() + area.getY(), area.getWidth(), area.getHeight());
         }
     }
 
@@ -151,6 +175,8 @@ public class MainController implements I18nResolver {
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open a project");
     }
 
     @FXML

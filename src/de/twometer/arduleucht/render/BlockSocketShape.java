@@ -2,6 +2,7 @@ package de.twometer.arduleucht.render;
 
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
+import de.twometer.arduleucht.gui.DragController;
 import de.twometer.arduleucht.gui.I18nResolver;
 import de.twometer.arduleucht.render.api.Point;
 
@@ -19,10 +20,10 @@ public class BlockSocketShape {
         this.socket = socket;
     }
 
-    void layout(I18nResolver resolver) {
+    void layout(DragController controller, I18nResolver resolver) {
         int height = 0;
         for (Block block : socket.values()) {
-            block.getShape().layout(resolver);
+            block.getShape().layout(controller, resolver);
             height += block.getShape().getHeight();
         }
         this.height = Math.max(MIN_HEIGHT, height);
