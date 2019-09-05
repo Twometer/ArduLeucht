@@ -19,7 +19,7 @@ public class SetPixelBlock extends Block {
 
     @Override
     public void write(SourceBuilder builder, CodeEmitter scope) throws BlockException {
-        scope.writeCall("strip", "setPixelColor", getValue("red"), getValue("green"), getValue("blue"));
+        scope.writeCall("strip", "setPixelColor", getValue("number"), getValue("red"), getValue("green"), getValue("blue"));
         scope.writeCall("strip", "show");
     }
 }

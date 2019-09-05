@@ -57,6 +57,7 @@ public class MainController implements I18nResolver {
         blocksTreeView.setCellFactory(new DragCellFactory());
 
         canvasContainer.setPannable(true);
+
         mainCanvas.setOnDragOver(event -> {
             if (!event.getDragboard().hasContent(DragCellFactory.DATA_FORMAT))
                 return;
@@ -198,7 +199,7 @@ public class MainController implements I18nResolver {
         ButtonType action = dirtyConfirmation();
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
-        currentProject = new Project(new File("D:\\test-project"));
+        currentProject = new Project(new File("C:\\test\\test-project"));
         ProgramBlock defaultBlock = new ProgramBlock();
         defaultBlock.getShape().setPosition(50, 50);
         currentProject.getTopLevelBlocks().add(defaultBlock);
@@ -254,6 +255,7 @@ public class MainController implements I18nResolver {
             @Override
             public void onBuildFailed(String message) {
                 controller.close();
+                System.err.println(message);
                 // TODO Show error message
             }
 
@@ -263,6 +265,7 @@ public class MainController implements I18nResolver {
                 // TODO Show success message
             }
         });
+        builder.build();
     }
 
     @FXML
