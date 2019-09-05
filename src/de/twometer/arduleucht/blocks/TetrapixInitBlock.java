@@ -11,7 +11,7 @@ public class TetrapixInitBlock extends Block {
 
     public TetrapixInitBlock() {
         super("blocks.tetrapix.init", BlockCategory.TETRAPIX, BlockType.METHOD);
-        addSocket("led_count", BlockType.DATA);
+        addSocket("led_count", BlockType.DATA).setValue(new IntBlock(5));
     }
 
     @Override

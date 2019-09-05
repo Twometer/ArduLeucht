@@ -133,7 +133,9 @@ public class MainController implements I18nResolver {
                 Block block = currentProject.findBlock(selectedBlock);
                 if (!(block instanceof ConstantBlock)) return;
                 InputControl control = ((ConstantBlock) block).createEditControl();
-                control.getValueConsumer().accept(inputDialog(control));
+                String value = inputDialog(control);
+                if (value == null || value.trim().length() == 0) return;
+                control.getValueConsumer().accept(value);
                 render();
             }
         });

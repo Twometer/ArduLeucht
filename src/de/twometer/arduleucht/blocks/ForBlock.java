@@ -10,10 +10,10 @@ import de.twometer.arduleucht.codegen.SourceBuilder;
 public class ForBlock extends Block {
     public ForBlock() {
         super("blocks.control.for_loop", BlockCategory.CONTROL, BlockType.METHOD);
-        addSocket("variable", BlockType.DATA);
-        addSocket("from", BlockType.DATA);
-        addSocket("to", BlockType.DATA);
-        addSocket("step", BlockType.DATA);
+        addSocket("variable", BlockType.DATA).setValue(new VariableNameBlock("i"));
+        addSocket("from", BlockType.DATA).setValue(new IntBlock(0));
+        addSocket("to", BlockType.DATA).setValue(new IntBlock(5));
+        addSocket("step", BlockType.DATA).setValue(new IntBlock(1));
         addSocket("body", BlockType.METHOD);
     }
 
