@@ -271,14 +271,25 @@ public class MainController implements I18nResolver {
             @Override
             public void onBuildFailed(String message) {
                 controller.close();
-                System.err.println(message);
-                // TODO Show error message
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(i18n("dialog.fail.title"));
+                    alert.setHeaderText(i18n("dialog.fail.header"));
+                    alert.setContentText(message);
+                    alert.showAndWait();
+                });
             }
 
             @Override
             public void onBuildSucceeded() {
                 controller.close();
-                // TODO Show success message
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(i18n("dialog.success.title"));
+                    alert.setContentText(i18n("dialog.success.content"));
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+                });
             }
         });
         builder.build();
