@@ -11,7 +11,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import jfxtras.styles.jmetro8.JMetro;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -29,7 +28,7 @@ public class UploadController {
         loader.setResources(ResourceBundle.getBundle("bundles.gui"));
 
         Parent root = loader.load();
-        new JMetro(JMetro.Style.DARK).applyTheme(root);
+        Theme.apply(root);
 
         UploadController controller = loader.getController();
         controller.stage = stage;

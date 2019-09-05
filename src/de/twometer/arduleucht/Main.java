@@ -1,5 +1,6 @@
 package de.twometer.arduleucht;
 
+import de.twometer.arduleucht.gui.Theme;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
 import javafx.application.Application;
@@ -8,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro8.JMetro;
 
 import java.util.ResourceBundle;
 
@@ -24,7 +24,7 @@ public class Main extends Application {
         loader.setResources(ResourceBundle.getBundle("bundles.gui"));
 
         Parent root = loader.load();
-        new JMetro(JMetro.Style.DARK).applyTheme(root);
+        Theme.apply(root);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(ResourceLoader.getResource("css/main.css").toExternalForm());

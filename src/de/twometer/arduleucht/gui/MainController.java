@@ -276,6 +276,7 @@ public class MainController implements I18nResolver {
                     alert.setTitle(i18n("dialog.fail.title"));
                     alert.setHeaderText(i18n("dialog.fail.header"));
                     alert.setContentText(message);
+                    Theme.apply(alert);
                     alert.showAndWait();
                 });
             }
@@ -288,6 +289,7 @@ public class MainController implements I18nResolver {
                     alert.setTitle(i18n("dialog.success.title"));
                     alert.setContentText(i18n("dialog.success.content"));
                     alert.setHeaderText(null);
+                    Theme.apply(alert);
                     alert.showAndWait();
                 });
             }
@@ -301,6 +303,7 @@ public class MainController implements I18nResolver {
         alert.setTitle(i18n("dialog.about.title"));
         alert.setHeaderText(String.format(i18n("dialog.about.header"), BuildInfo.NAME));
         alert.setContentText(String.format(i18n("dialog.about.content"), BuildInfo.VERSION));
+        Theme.apply(alert);
         alert.showAndWait();
     }
 
@@ -311,6 +314,7 @@ public class MainController implements I18nResolver {
         alert.setHeaderText(null);
         alert.setContentText(i18n("dialog.dirty.content"));
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Theme.apply(alert);
         return alert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
@@ -328,6 +332,7 @@ public class MainController implements I18nResolver {
 
         dialog.setTitle(i18n("dialog.input.title"));
         dialog.setHeaderText(i18n(control.getDescriptionKey()));
+        Theme.apply(dialog);
         return dialog.showAndWait().orElse("");
     }
 
