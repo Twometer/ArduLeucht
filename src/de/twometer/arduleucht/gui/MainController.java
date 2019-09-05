@@ -10,7 +10,6 @@ import de.twometer.arduleucht.build.event.BuildListener;
 import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.render.BlockShape;
-import de.twometer.arduleucht.render.LeuchtColors;
 import de.twometer.arduleucht.render.api.Point;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
@@ -131,7 +130,7 @@ public class MainController implements I18nResolver {
                             area.getDraggedHandler().onDragged(block);
                             currentProject.removeTopLevelBlock(block);
                         } catch (BlockException e) {
-                            e.printStackTrace();
+                            // Wrong block type or similar, don't log
                         }
                     }
                 }
@@ -155,10 +154,10 @@ public class MainController implements I18nResolver {
             block.getShape().draw(gc, dragController, this);
         }
 
-        gc.setFill(LeuchtColors.PURPLE);
+        /*gc.setFill(LeuchtColors.PURPLE);
         for (DragArea area : dragController.getDragAreas()) {
             gc.fillRect(area.getSrcBlock().getShape().getX() + area.getX(), area.getSrcBlock().getShape().getY() + area.getY(), area.getWidth(), area.getHeight());
-        }
+        }*/
     }
 
     @FXML

@@ -70,12 +70,16 @@ public class BlockShape {
         int xo = width - SOCKET_WIDTH;
         int yo = SOCKET_PADDING + 5;
         for (BlockSocket socket : block.getSockets()) {
-            if (socket.values().size() > 0)
+            if (socket.values().size() > 0) {
+                int idx = 0;
+                dragController.addDragArea(new DragArea(block, xo - 5, yo, 150, 10, dragBlock -> socket.insertValue(0, dragBlock)));
                 for (Block block : socket.values()) {
-                    dragController.addDragArea(new DragArea(block, xo, yo, width - xo, 5, socket::addValue));
+                    final int dropIdx = idx;
                     yo += block.getShape().getHeight();
+                    dragController.addDragArea(new DragArea(this.block, xo - 5, yo, 150, 10, dragBlock -> socket.insertValue(dropIdx, dragBlock)));
+                    idx++;
                 }
-            else {
+            } else {
                 dragController.addDragArea(new DragArea(block, xo, yo, SOCKET_WIDTH, 25, socket::addValue));
                 yo += 25;
             }

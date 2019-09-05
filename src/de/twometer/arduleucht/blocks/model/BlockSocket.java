@@ -55,9 +55,20 @@ public class BlockSocket {
         value.setParent(sourceBlock);
     }
 
-    public void addValue(Block value) throws BlockException {
-        if (!allowsMultiple)
+    public void insertValue(int idx, Block value) throws BlockException {
+        if (!allowsMultiple && values.size() != 0)
             throw new BlockException("This socket does not allow multiple values");
+        if (!allowedTypes.contains(value.getType()))
+            throw new BlockException("This socket does not allow " + value.getType() + " values");
+        values.add(idx, value);
+        value.setParent(sourceBlock);
+    }
+
+    public void addValue(Block value) throws BlockException {
+        if (!allowsMultiple && values.size() != 0)
+            throw new BlockException("This socket does not allow multiple values");
+        if (!allowedTypes.contains(value.getType()))
+            throw new BlockException("This socket does not allow " + value.getType() + " values");
         values.add(value);
         value.setParent(sourceBlock);
     }
