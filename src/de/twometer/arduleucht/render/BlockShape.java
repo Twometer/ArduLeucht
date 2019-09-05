@@ -50,14 +50,13 @@ public class BlockShape {
 
         if (block instanceof ConstantBlock) {
             Bounds textBounds = TextMetrics.getInstance().measure(getConstantValue(resolver, ((ConstantBlock) block)));
-            this.width = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
+            this.width = (int) (textBounds.getWidth() + TEXT_PADDING * 2);
             this.height = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
             return;
-        } else {
-            width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
-            height = 10;
         }
 
+        width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
+        height = 10;
 
         for (BlockSocket socket : block.getSockets()) {
             socket.getShape().layout(dragController, resolver);
