@@ -27,6 +27,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 
@@ -173,6 +174,19 @@ public class MainController implements I18nResolver {
                 render();
             }
         });
+
+        Platform.runLater(() -> canvasContainer.getScene().setOnKeyPressed(event -> {
+            if (event.getCode() != KeyCode.DELETE || currentProject == null) return;
+            UUID selectedBlock = BlockShape.getSelectedBlock();
+            if (selectedBlock != null) {
+                Block block = currentProject.findBlock(selectedBlock);
+                if (block == null) return;
+                if (block.hasParent())
+                    block.getParentSocket().removeValue(block);
+                else currentProject.removeTopLevelBlock(block);
+                render();
+            }
+        }));
 
 
         loadTreeView();
