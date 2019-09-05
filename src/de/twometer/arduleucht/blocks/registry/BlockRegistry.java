@@ -12,9 +12,10 @@ public class BlockRegistry {
     private static final Block[] REGISTERED_BLOCKS = new Block[]{
             new ProgramBlock(),
             new SetPixelBlock(),
+            new ForBlock(),
             new TetrapixInitBlock(),
             new IntBlock(),
-            new ForBlock(),
+            new StringBlock(),
             new VariableRefBlock()
     };
 

@@ -1,5 +1,6 @@
 package de.twometer.arduleucht.blocks.base;
 
+import de.twometer.arduleucht.blocks.input.InputControl;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.blocks.model.BlockType;
@@ -30,6 +31,8 @@ public abstract class ConstantBlock<T> extends Block {
     public final void write(SourceBuilder builder, CodeEmitter scope) throws BlockException {
         writeValue(scope);
     }
+
+    public abstract InputControl createEditControl();
 
     public abstract void writeValue(CodeEmitter scope) throws BlockException;
 

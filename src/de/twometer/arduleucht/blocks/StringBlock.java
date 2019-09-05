@@ -7,26 +7,26 @@ import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.model.BlockType;
 import de.twometer.arduleucht.codegen.CodeEmitter;
 
-public class IntBlock extends ConstantBlock<Integer> {
+public class StringBlock extends ConstantBlock<String> {
 
-    public IntBlock() {
-        this(0);
+    public StringBlock() {
+        this("");
     }
 
-    IntBlock(int value) {
-        super("blocks.data.integer", BlockCategory.DATA, BlockType.DATA, int.class);
+    private StringBlock(String value) {
+        super("blocks.data.string", BlockCategory.DATA, BlockType.DATA, String.class);
         setValue(value);
     }
 
     @Override
     public InputControl createEditControl() {
-        return new TextInputControl(val -> setValue(Integer.valueOf(val)))
-                .describedBy("dialog.input.integer");
+        return new TextInputControl(this::setValue)
+                .describedBy("dialog.input.string");
     }
 
     @Override
     public void writeValue(CodeEmitter scope) {
-        scope.write(String.valueOf(getValue()));
+        scope.write(String.format("\"%s\"", getValue()));
     }
 
 }

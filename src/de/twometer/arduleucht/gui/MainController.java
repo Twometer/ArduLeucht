@@ -1,6 +1,11 @@
 package de.twometer.arduleucht.gui;
 
+import de.twometer.arduleucht.blocks.ProgramBlock;
 import de.twometer.arduleucht.blocks.base.Block;
+import de.twometer.arduleucht.blocks.base.ConstantBlock;
+import de.twometer.arduleucht.blocks.input.ChoiceInputControl;
+import de.twometer.arduleucht.blocks.input.InputControl;
+import de.twometer.arduleucht.blocks.input.TextInputControl;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.blocks.registry.BlockInfo;
@@ -120,6 +125,18 @@ public class MainController implements I18nResolver {
             }
         });
 
+        mainCanvas.setOnMouseClicked(event -> {
+            if (event.getClickCount() != 2 || currentProject == null) return;
+            UUID selectedBlock = BlockShape.getSelectedBlock();
+            if (selectedBlock != null) {
+                Block block = currentProject.findBlock(selectedBlock);
+                if (!(block instanceof ConstantBlock)) return;
+                InputControl control = ((ConstantBlock) block).createEditControl();
+                control.getValueConsumer().accept(inputDialog(control));
+                render();
+            }
+        });
+
         mainCanvas.setOnMouseDragged(event -> {
             UUID selectedBlock = BlockShape.getSelectedBlock();
             if (currentProject != null && selectedBlock != null) {
@@ -182,6 +199,10 @@ public class MainController implements I18nResolver {
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
         currentProject = new Project(new File("D:\\test-project"));
+        ProgramBlock defaultBlock = new ProgramBlock();
+        defaultBlock.getShape().setPosition(50, 50);
+        currentProject.getTopLevelBlocks().add(defaultBlock);
+        render();
     }
 
     @FXML
@@ -261,6 +282,23 @@ public class MainController implements I18nResolver {
         alert.setContentText(i18n("dialog.dirty.content"));
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         return alert.showAndWait().orElse(ButtonType.CANCEL);
+    }
+
+    private String inputDialog(InputControl control) {
+        Dialog<String> dialog = null;
+        if (control instanceof TextInputControl)
+            dialog = new TextInputDialog();
+        else if (control instanceof ChoiceInputControl) {
+            String[] choices = ((ChoiceInputControl) control).getChoices().toArray(new String[]{});
+            if (choices.length == 0) return "";
+            dialog = new ChoiceDialog<>(choices[0], choices);
+        }
+
+        if (dialog == null) return "";
+
+        dialog.setTitle(i18n("dialog.input.title"));
+        dialog.setHeaderText(i18n(control.getDescriptionKey()));
+        return dialog.showAndWait().orElse("");
     }
 
     private void loadTreeView() {

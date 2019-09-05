@@ -48,7 +48,7 @@ public class BlockShape {
     void layout(DragController dragController, I18nResolver resolver) {
 
         if (block instanceof ConstantBlock) {
-            Bounds textBounds = TextMetrics.getInstance().measure(((ConstantBlock) block).valueToString());
+            Bounds textBounds = TextMetrics.getInstance().measure(getConstantValue(resolver, ((ConstantBlock) block)));
             this.width = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
             this.height = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
             return;
@@ -128,7 +128,7 @@ public class BlockShape {
     }
 
     private void drawConstant(GraphicsContext context, I18nResolver resolver) {
-        String value = ((ConstantBlock) block).valueToString();
+        String value = getConstantValue(resolver, ((ConstantBlock) block));
         polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, this.height / 2d);
         polygon.addPoint(SOCKET_WIDTH, 0);
@@ -237,4 +237,10 @@ public class BlockShape {
     public Polygon getPolygon() {
         return polygon;
     }
+
+    private String getConstantValue(I18nResolver resolver, ConstantBlock block) {
+        String val = block.valueToString();
+        return val.equals("null") ? resolver.i18n("null") : val;
+    }
+
 }
