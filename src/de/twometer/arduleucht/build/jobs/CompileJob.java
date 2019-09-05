@@ -1,10 +1,10 @@
 package de.twometer.arduleucht.build.jobs;
 
-import de.twometer.arduleucht.arduino.ArduinoBuilder;
 import de.twometer.arduleucht.build.BuildException;
 import de.twometer.arduleucht.build.ProjectBuilder;
+import de.twometer.arduleucht.build.arduino.ArduinoBuilder;
 import de.twometer.arduleucht.build.event.BuildState;
-import de.twometer.arduleucht.util.ConsoleProcess;
+import de.twometer.arduleucht.io.ConsoleProcess;
 
 import java.io.IOException;
 

@@ -7,7 +7,7 @@ import de.twometer.arduleucht.blocks.input.InputControl;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.blocks.model.BlockType;
-import de.twometer.arduleucht.codegen.CodeEmitter;
+import de.twometer.arduleucht.build.codegen.CodeEmitter;
 
 public class VariableRefBlock extends ConstantBlock<String> {
 

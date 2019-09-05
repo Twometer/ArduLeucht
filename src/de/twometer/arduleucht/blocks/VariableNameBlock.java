@@ -5,7 +5,7 @@ import de.twometer.arduleucht.blocks.input.InputControl;
 import de.twometer.arduleucht.blocks.input.TextInputControl;
 import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.model.BlockType;
-import de.twometer.arduleucht.codegen.CodeEmitter;
+import de.twometer.arduleucht.build.codegen.CodeEmitter;
 
 public class VariableNameBlock extends ConstantBlock<String> {
 

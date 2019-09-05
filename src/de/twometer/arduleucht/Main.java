@@ -1,8 +1,8 @@
 package de.twometer.arduleucht;
 
-import de.twometer.arduleucht.gui.Theme;
+import de.twometer.arduleucht.gui.util.Theme;
+import de.twometer.arduleucht.io.ResourceLoader;
 import de.twometer.arduleucht.util.BuildInfo;
-import de.twometer.arduleucht.util.ResourceLoader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

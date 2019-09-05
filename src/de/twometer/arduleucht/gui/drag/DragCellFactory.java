@@ -1,5 +1,6 @@
-package de.twometer.arduleucht.gui;
+package de.twometer.arduleucht.gui.drag;
 
+import de.twometer.arduleucht.gui.util.Tagged;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.ClipboardContent;
@@ -10,7 +11,7 @@ import javafx.util.Callback;
 
 public class DragCellFactory implements Callback<TreeView<Tagged>, TreeCell<Tagged>> {
 
-    static DataFormat DATA_FORMAT = new DataFormat("text/arduleucht-block");
+    public static DataFormat DATA_FORMAT = new DataFormat("text/arduleucht-block");
 
     @Override
     public TreeCell<Tagged> call(TreeView<Tagged> param) {

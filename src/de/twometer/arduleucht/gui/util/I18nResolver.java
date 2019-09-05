@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.gui;
+package de.twometer.arduleucht.gui.util;
 
 public interface I18nResolver {
 

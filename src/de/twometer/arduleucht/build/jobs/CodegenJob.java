@@ -2,7 +2,7 @@ package de.twometer.arduleucht.build.jobs;
 
 import de.twometer.arduleucht.build.BuildException;
 import de.twometer.arduleucht.build.ProjectBuilder;
-import de.twometer.arduleucht.codegen.CodeGenerator;
+import de.twometer.arduleucht.build.codegen.CodeGenerator;
 
 import java.io.IOException;
 

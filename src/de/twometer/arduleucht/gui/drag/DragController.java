@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.gui;
+package de.twometer.arduleucht.gui.drag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ public class DragController {
 
     private List<DragArea> dragAreas = new ArrayList<>();
 
-    void reset() {
+    public void reset() {
         dragAreas.clear();
     }
 
@@ -15,7 +15,7 @@ public class DragController {
         this.dragAreas.add(dragArea);
     }
 
-    List<DragArea> getDragAreas() {
+    public List<DragArea> getDragAreas() {
         return dragAreas;
     }
 }

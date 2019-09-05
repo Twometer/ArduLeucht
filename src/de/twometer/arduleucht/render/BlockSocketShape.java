@@ -2,8 +2,8 @@ package de.twometer.arduleucht.render;
 
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
-import de.twometer.arduleucht.gui.DragController;
-import de.twometer.arduleucht.gui.I18nResolver;
+import de.twometer.arduleucht.gui.drag.DragController;
+import de.twometer.arduleucht.gui.util.I18nResolver;
 import de.twometer.arduleucht.render.api.Point;
 
 public class BlockSocketShape {

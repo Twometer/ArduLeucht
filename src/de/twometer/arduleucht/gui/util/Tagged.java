@@ -1,27 +1,27 @@
-package de.twometer.arduleucht.gui;
+package de.twometer.arduleucht.gui.util;
 
 import java.io.Serializable;
 
-class Tagged implements Serializable {
+public class Tagged implements Serializable {
 
     private String value;
 
     private String tag;
 
-    Tagged(String value) {
+    public Tagged(String value) {
         this.value = value;
     }
 
-    Tagged(String value, String tag) {
+    public Tagged(String value, String tag) {
         this.value = value;
         this.tag = tag;
     }
 
-    String getValue() {
+    public String getValue() {
         return value;
     }
 
-    String getTag() {
+    public String getTag() {
         return tag;
     }
 

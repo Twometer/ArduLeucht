@@ -4,8 +4,8 @@ import de.twometer.arduleucht.blocks.model.BlockCategory;
 import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.blocks.model.BlockType;
-import de.twometer.arduleucht.codegen.CodeEmitter;
-import de.twometer.arduleucht.codegen.SourceBuilder;
+import de.twometer.arduleucht.build.codegen.CodeEmitter;
+import de.twometer.arduleucht.build.codegen.SourceBuilder;
 import de.twometer.arduleucht.render.BlockShape;
 
 import java.util.ArrayList;

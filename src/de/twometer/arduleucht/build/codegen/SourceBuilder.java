@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.codegen;
+package de.twometer.arduleucht.build.codegen;
 
 import java.util.HashMap;
 

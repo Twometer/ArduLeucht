@@ -1,7 +1,7 @@
-package de.twometer.arduleucht.arduino;
+package de.twometer.arduleucht.build.arduino;
 
-import de.twometer.arduleucht.util.CommandLineBuilder;
-import de.twometer.arduleucht.util.FileSystem;
+import de.twometer.arduleucht.io.CommandLineBuilder;
+import de.twometer.arduleucht.io.FileSystem;
 
 import java.io.File;
 

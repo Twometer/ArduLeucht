@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.gui;
+package de.twometer.arduleucht.gui.util;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +10,7 @@ public class Theme {
 
     private static JMetro metro = new JMetro(JMetro.Style.LIGHT);
 
-    static void apply(Dialog dialog) {
+    public static void apply(Dialog dialog) {
         metro.applyTheme(dialog.getDialogPane().getScene());
     }
 
@@ -22,7 +22,7 @@ public class Theme {
         metro.applyTheme(parent);
     }
 
-    static void apply(Alert alert) {
+    public static void apply(Alert alert) {
         metro.applyTheme(alert.getDialogPane().getScene());
     }
 

@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.arduino;
+package de.twometer.arduleucht.build.arduino;
 
 import de.twometer.arduleucht.build.BuildException;
 

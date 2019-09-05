@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.gui;
+package de.twometer.arduleucht.gui.drag;
 
 import de.twometer.arduleucht.blocks.base.Block;
 import de.twometer.arduleucht.blocks.model.BlockException;
@@ -28,45 +28,46 @@ public class DragArea {
         this.draggedHandler = draggedHandler;
     }
 
-    Block getSrcBlock() {
+    public Block getSrcBlock() {
         return srcBlock;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
-    int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    int getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    boolean isOver(int mx, int my) {
+    public boolean isOver(int mx, int my) {
         int x = this.x + srcBlock.getShape().getX();
         int y = this.y + srcBlock.getShape().getY();
         return mx >= x && my >= y && mx < x + width && my < y + height;
     }
 
-    Handler getDraggedHandler() {
+    public Handler getDraggedHandler() {
         return draggedHandler;
     }
 
-    boolean isHighlighted() {
+    public boolean isHighlighted() {
         return isHighlighted;
     }
 
-    void setHighlighted(boolean highlighted) {
+    public void setHighlighted(boolean highlighted) {
         isHighlighted = highlighted;
     }
 
     public interface Handler {
         void onDragged(Block draggedBlock) throws BlockException;
     }
+
 }

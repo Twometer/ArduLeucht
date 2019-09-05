@@ -1,4 +1,4 @@
-package de.twometer.arduleucht.render;
+package de.twometer.arduleucht.render.api;
 
 import javafx.scene.paint.Color;
 
