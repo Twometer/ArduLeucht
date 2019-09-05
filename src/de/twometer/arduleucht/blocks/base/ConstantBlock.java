@@ -37,8 +37,12 @@ public abstract class ConstantBlock<T> extends Block {
         return value;
     }
 
-    public void setValue(T value) {
+    protected void setValue(T value) {
         this.value = value;
+    }
+
+    public String valueToString() {
+        return String.valueOf(value);
     }
 
     public Class<T> getInputType() {

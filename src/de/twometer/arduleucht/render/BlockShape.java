@@ -46,13 +46,15 @@ public class BlockShape {
     }
 
     void layout(DragController dragController, I18nResolver resolver) {
-        width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
-        height = 10;
 
         if (block instanceof ConstantBlock) {
-            Bounds textBounds = TextMetrics.getInstance().measure("value_here");
+            Bounds textBounds = TextMetrics.getInstance().measure(((ConstantBlock) block).valueToString());
+            this.width = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
             this.height = (int) (textBounds.getHeight() + TEXT_PADDING * 2);
             return;
+        } else {
+            width = (int) (TextMetrics.getInstance().measure(resolver.i18n(block.getName())).getWidth()) + TEXT_PADDING * 2;
+            height = 10;
         }
 
 
@@ -126,6 +128,7 @@ public class BlockShape {
     }
 
     private void drawConstant(GraphicsContext context, I18nResolver resolver) {
+        String value = ((ConstantBlock) block).valueToString();
         polygon = new Polygon(this.x, this.y);
         polygon.addPoint(0, this.height / 2d);
         polygon.addPoint(SOCKET_WIDTH, 0);
@@ -135,6 +138,10 @@ public class BlockShape {
         polygon.addPoint(SOCKET_WIDTH, this.height);
         context.setLineWidth(isSelected() ? 2 : 1);
         polygon.render(context, isSelected() ? LeuchtColors.SILVER : LeuchtColors.ASPHALT);
+
+        Bounds bounds = TextMetrics.getInstance().measure(value);
+        context.setFill(Color.WHITE);
+        context.fillText(value, this.x + SOCKET_WIDTH + this.width / 2d - bounds.getWidth() / 2d, this.y + this.height / 2d);
     }
 
     private void drawRegular(GraphicsContext context, I18nResolver resolver) {
