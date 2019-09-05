@@ -18,4 +18,11 @@ public class Point {
     public double getY() {
         return y;
     }
+
+    public double distanceTo(double x, double y) {
+        double dx = this.x - x;
+        double dy = this.y - y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
 }

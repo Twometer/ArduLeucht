@@ -52,7 +52,7 @@ public class BlockSocket {
     public void setValue(Block value) {
         values.clear();
         values.add(value);
-        value.setParent(sourceBlock);
+        value.setParent(sourceBlock, this);
     }
 
     public void insertValue(int idx, Block value) throws BlockException {
@@ -61,7 +61,7 @@ public class BlockSocket {
         if (!allowedTypes.contains(value.getType()))
             throw new BlockException("This socket does not allow " + value.getType() + " values");
         values.add(idx, value);
-        value.setParent(sourceBlock);
+        value.setParent(sourceBlock, this);
     }
 
     public void addValue(Block value) throws BlockException {
@@ -70,17 +70,17 @@ public class BlockSocket {
         if (!allowedTypes.contains(value.getType()))
             throw new BlockException("This socket does not allow " + value.getType() + " values");
         values.add(value);
-        value.setParent(sourceBlock);
+        value.setParent(sourceBlock, this);
     }
 
     public void removeValue(Block value) {
-        value.setParent(null);
+        value.setParent(null, this);
         values.remove(value);
     }
 
     public void clearValues() {
         for (Block block : values)
-            block.setParent(null);
+            block.setParent(null, this);
         values.clear();
     }
 

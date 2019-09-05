@@ -10,6 +10,7 @@ import de.twometer.arduleucht.build.event.BuildListener;
 import de.twometer.arduleucht.build.event.BuildState;
 import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.render.BlockShape;
+import de.twometer.arduleucht.render.LeuchtColors;
 import de.twometer.arduleucht.render.api.Point;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.ResourceLoader;
@@ -75,15 +76,17 @@ public class MainController implements I18nResolver {
         });
 
         Wrapper<Point> dragOrigin = new Wrapper<>();
+        Wrapper<Point> relativeDragOrigin = new Wrapper<>();
         mainCanvas.setOnMousePressed(event -> {
             if (currentProject == null) return;
 
             Point clickPoint = new Point(event.getX(), event.getY());
+            dragOrigin.set(clickPoint);
             Wrapper<Boolean> hasClicked = new Wrapper<>(false);
             currentProject.iterateAllBlocks(block -> {
                 if (block.getShape().getPolygon().test(clickPoint)) {
                     block.getShape().select();
-                    dragOrigin.set(new Point(block.getShape().getX() - event.getX(), block.getShape().getY() - event.getY()));
+                    relativeDragOrigin.set(new Point(block.getShape().getX() - event.getX(), block.getShape().getY() - event.getY()));
                     hasClicked.set(true);
                     render();
                 }
@@ -122,17 +125,29 @@ public class MainController implements I18nResolver {
             if (currentProject != null && selectedBlock != null) {
                 Block block = currentProject.findBlock(selectedBlock);
                 if (block == null) return;
-                block.getShape().setPosition((int) (event.getX() + dragOrigin.get().getX()), (int) (event.getY() + dragOrigin.get().getY()));
+                block.getShape().setPosition((int) (event.getX() + relativeDragOrigin.get().getX()), (int) (event.getY() + relativeDragOrigin.get().getY()));
                 block.getShape().setDragging(true);
+                boolean isOverAny = false;
                 for (DragArea area : dragController.getDragAreas()) {
-                    if (area.isOver((int) event.getX(), (int) event.getY()) && block.getParent() == null && area.getSrcBlock() != block) {
+                    if (area.isOver((int) event.getX(), (int) event.getY()) && area.getSrcBlock() != block) {
                         try {
+                            if (block.hasParent()) block.getParentSocket().removeValue(block);
                             area.getDraggedHandler().onDragged(block);
                             currentProject.removeTopLevelBlock(block);
+                            dragOrigin.set(new Point(event.getX(), event.getY()));
+                            isOverAny = true;
                         } catch (BlockException e) {
                             // Wrong block type or similar, don't log
                         }
+                        area.setHighlighted(true);
+                    } else {
+                        area.setHighlighted(false);
                     }
+                }
+
+                if (!isOverAny && block.hasParent() && dragOrigin.get().distanceTo(event.getX(), event.getY()) > 15) {
+                    if (block.hasParent()) block.getParentSocket().removeValue(block);
+                    currentProject.getTopLevelBlocks().add(block);
                 }
 
                 render();
@@ -154,10 +169,11 @@ public class MainController implements I18nResolver {
             block.getShape().draw(gc, dragController, this);
         }
 
-        /*gc.setFill(LeuchtColors.PURPLE);
+        gc.setFill(LeuchtColors.PURPLE);
         for (DragArea area : dragController.getDragAreas()) {
-            gc.fillRect(area.getSrcBlock().getShape().getX() + area.getX(), area.getSrcBlock().getShape().getY() + area.getY(), area.getWidth(), area.getHeight());
-        }*/
+            if (area.isHighlighted())
+                gc.fillRect(area.getSrcBlock().getShape().getX() + area.getX(), area.getSrcBlock().getShape().getY() + area.getY() + 5, area.getWidth(), 2);
+        }
     }
 
     @FXML

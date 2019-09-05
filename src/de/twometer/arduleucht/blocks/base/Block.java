@@ -16,6 +16,7 @@ public abstract class Block {
     private String name;
 
     private Block parent;
+    private BlockSocket parentSocket;
 
     private BlockCategory category;
 
@@ -50,16 +51,25 @@ public abstract class Block {
         return parent;
     }
 
+    public BlockSocket getParentSocket() {
+        return parentSocket;
+    }
+
     public BlockShape getShape() {
         return shape;
     }
 
-    public void setParent(Block parent) {
+    public void setParent(Block parent, BlockSocket parentSocket) {
         this.parent = parent;
+        this.parentSocket = parentSocket;
     }
 
     public List<BlockSocket> getSockets() {
         return sockets;
+    }
+
+    public boolean hasParent() {
+        return parent != null && parentSocket != null;
     }
 
     protected BlockSocket getSocket(String name) throws BlockException {

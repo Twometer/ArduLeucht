@@ -17,6 +17,8 @@ public class DragArea {
 
     private Handler draggedHandler;
 
+    private boolean isHighlighted;
+
     public DragArea(Block srcBlock, int x, int y, int width, int height, Handler draggedHandler) {
         this.srcBlock = srcBlock;
         this.x = x;
@@ -54,6 +56,14 @@ public class DragArea {
 
     Handler getDraggedHandler() {
         return draggedHandler;
+    }
+
+    boolean isHighlighted() {
+        return isHighlighted;
+    }
+
+    void setHighlighted(boolean highlighted) {
+        isHighlighted = highlighted;
     }
 
     public interface Handler {
