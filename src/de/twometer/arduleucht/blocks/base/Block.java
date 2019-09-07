@@ -72,7 +72,7 @@ public abstract class Block {
         return parent != null && parentSocket != null;
     }
 
-    protected BlockSocket getSocket(String name) throws BlockException {
+    public BlockSocket getSocket(String name) throws BlockException {
         for (BlockSocket socket : sockets)
             if (socket.getName().equals(name))
                 return socket;

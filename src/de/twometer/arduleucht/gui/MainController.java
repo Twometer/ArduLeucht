@@ -19,6 +19,8 @@ import de.twometer.arduleucht.gui.drag.DragController;
 import de.twometer.arduleucht.gui.util.I18nResolver;
 import de.twometer.arduleucht.gui.util.Tagged;
 import de.twometer.arduleucht.gui.util.Theme;
+import de.twometer.arduleucht.io.ProjectDeserializer;
+import de.twometer.arduleucht.io.ProjectSerializer;
 import de.twometer.arduleucht.io.ResourceLoader;
 import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.render.BlockShape;
@@ -35,8 +37,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
-import javafx.stage.FileChooser;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -231,17 +235,27 @@ public class MainController implements I18nResolver {
 
     @FXML
     public void onOpenProject() {
-        ButtonType action = dirtyConfirmation();
+        /*ButtonType action = dirtyConfirmation();
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open a project");
+        fileChooser.setTitle("Open a project");*/
+        try {
+            currentProject = new ProjectDeserializer(new File("D:\\test_project")).deserialize();
+        } catch (ParserConfigurationException | IOException | SAXException | IllegalAccessException | InstantiationException | ClassNotFoundException | BlockException e) { // Yes, all those exceptions COULD get thrown o_o. I love java.
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void onSaveProject() {
-
+        ProjectSerializer serializer = new ProjectSerializer(currentProject);
+        try {
+            serializer.serialize();
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

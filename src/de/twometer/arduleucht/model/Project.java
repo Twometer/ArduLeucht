@@ -34,6 +34,14 @@ public class Project {
         return new File(projectFolder, "generated.ino");
     }
 
+    public static File getDataFile(File projectFolder) {
+        return new File(projectFolder, "blocks.xml");
+    }
+
+    public File getDataFile() {
+        return getDataFile(projectFolder);
+    }
+
     public void setProjectFolder(File projectFolder) {
         this.projectFolder = projectFolder;
     }

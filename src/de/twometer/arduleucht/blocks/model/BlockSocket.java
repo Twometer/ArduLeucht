@@ -66,7 +66,7 @@ public class BlockSocket {
 
     public void addValue(Block value) throws BlockException {
         if (!allowsMultiple && values.size() != 0)
-            throw new BlockException("This socket does not allow multiple values");
+            throw new BlockException("This socket does not allow multiple values (" + sourceBlock.toString() + " @ " + name + "), " + values.size());
         if (!allowedTypes.contains(value.getType()))
             throw new BlockException("This socket does not allow " + value.getType() + " values");
         values.add(value);
