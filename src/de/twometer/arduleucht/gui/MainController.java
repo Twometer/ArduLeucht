@@ -221,7 +221,8 @@ public class MainController implements I18nResolver {
         ButtonType action = dirtyConfirmation();
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
-        currentProject = new Project(new File("C:\\test\\test-project"));
+        currentProject = new Project(new File("D:\\test_project"));
+        currentProject.create();
         ProgramBlock defaultBlock = new ProgramBlock();
         defaultBlock.getShape().setPosition(50, 50);
         currentProject.getTopLevelBlocks().add(defaultBlock);

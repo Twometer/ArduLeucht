@@ -22,6 +22,10 @@ public class Project {
         this.projectFolder = projectFolder;
     }
 
+    public void create() {
+        if (!projectFolder.exists()) projectFolder.mkdirs();
+    }
+
     public File getProjectFolder() {
         return projectFolder;
     }

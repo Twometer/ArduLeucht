@@ -45,9 +45,21 @@ public class CodeEmitter {
         indent++;
     }
 
-    public void openFor(String variable, String from, String to, String step) {
+    public void openFor(Block variable, Block from, Block to, Block step) throws BlockException {
         writeIndent();
-        writef("for (%1$s = %2$s; %1$s < %3$s; %1$s++) {\n", variable, from, to, step);
+        write("for (int ");
+        writeObject(variable);
+        write(" = ");
+        writeObject(from);
+        write("; ");
+        writeObject(variable);
+        write(" < ");
+        writeObject(to);
+        write("; ");
+        writeObject(variable);
+        write(" += ");
+        writeObject(step);
+        write(") { \n");
         indent++;
     }
 

@@ -19,7 +19,7 @@ public class ForBlock extends Block {
 
     @Override
     public void write(SourceBuilder builder, CodeEmitter scope) throws BlockException {
-        // TODO scope.openFor();
+        scope.openFor(getValue("variable"), getValue("from"), getValue("to"), getValue("step"));
         CodeEmitter innerScope = new CodeEmitter();
         getValue("body").write(builder, innerScope);
         innerScope.pipe(scope);

@@ -20,6 +20,8 @@ public class CompileJob implements BuildJob {
         try {
             ConsoleProcess process = ConsoleProcess.create(builderCmd);
             process.waitFor();
+            if (!builder.getOutputFile().exists())
+                throw new BuildException("Compilation failed");
         } catch (IOException | InterruptedException e) {
             throw new BuildException(e.getMessage());
         }
