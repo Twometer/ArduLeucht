@@ -20,7 +20,7 @@ public abstract class ConstantBlock<T> extends Block {
 
     private Class<T> inputType;
 
-    private T value;
+    private Object value;
 
     public ConstantBlock(String name, BlockCategory category, BlockType type, Class<T> inputType) {
         super(name, category, type);
@@ -36,12 +36,24 @@ public abstract class ConstantBlock<T> extends Block {
 
     public abstract void writeValue(CodeEmitter scope) throws BlockException;
 
+    @SuppressWarnings("unchecked")
     protected T getValue() {
-        return value;
+        if (value.getClass() != inputType)
+            throw new IllegalStateException("Value must be of type " + inputType.getSimpleName());
+        return (T) value;
     }
 
     protected void setValue(T value) {
         this.value = value;
+    }
+
+    public void valueFromString(String string) {
+        if (inputType == int.class)
+            this.value = Integer.parseInt(string);
+        else if (inputType == boolean.class)
+            this.value = Boolean.parseBoolean(string);
+        else if (inputType == String.class)
+            this.value = string;
     }
 
     public String valueToString() {

@@ -1,6 +1,7 @@
 package de.twometer.arduleucht.io;
 
 import de.twometer.arduleucht.blocks.base.Block;
+import de.twometer.arduleucht.blocks.base.ConstantBlock;
 import de.twometer.arduleucht.blocks.model.BlockException;
 import de.twometer.arduleucht.blocks.model.BlockSocket;
 import de.twometer.arduleucht.model.Project;
@@ -33,7 +34,7 @@ public class ProjectDeserializer {
 
         for (int i = 0; i < rootElement.getChildNodes().getLength(); i++) {
             Element elem = (Element) rootElement.getChildNodes().item(i);
-            if (elem.getTagName().equals("Block"))
+            if (elem.getTagName().equals("Block") || elem.getTagName().equals("ConstantBlock"))
                 project.getTopLevelBlocks().add(deserializeBlock(elem));
         }
         return project;
@@ -45,6 +46,9 @@ public class ProjectDeserializer {
 
         if (blockElement.hasAttribute("X") && blockElement.hasAttribute("Y"))
             block.getShape().setPosition(Integer.parseInt(blockElement.getAttribute("X")), Integer.parseInt(blockElement.getAttribute("Y")));
+
+        if (blockElement.hasAttribute("Value") && block instanceof ConstantBlock)
+            ((ConstantBlock) block).valueFromString(blockElement.getAttribute("Value"));
 
 
         for (int i = 0; i < blockElement.getChildNodes().getLength(); i++) {

@@ -243,6 +243,7 @@ public class MainController implements I18nResolver {
         fileChooser.setTitle("Open a project");*/
         try {
             currentProject = new ProjectDeserializer(new File("D:\\test_project")).deserialize();
+            render();
         } catch (ParserConfigurationException | IOException | SAXException | IllegalAccessException | InstantiationException | ClassNotFoundException | BlockException e) { // Yes, all those exceptions COULD get thrown o_o. I love java.
             e.printStackTrace();
         }
