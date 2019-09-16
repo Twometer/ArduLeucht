@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.TransferMode;
+import javafx.stage.DirectoryChooser;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -147,6 +148,7 @@ public class MainController implements I18nResolver {
                 String value = inputDialog(control);
                 if (value == null || value.trim().length() == 0) return;
                 control.getValueConsumer().accept(value);
+                dirty = true;
                 render();
             }
         });
@@ -158,6 +160,7 @@ public class MainController implements I18nResolver {
                 if (block == null) return;
                 block.getShape().setPosition((int) (event.getX() + relativeDragOrigin.get().getX()), (int) (event.getY() + relativeDragOrigin.get().getY()));
                 block.getShape().setDragging(true);
+                dirty = true;
                 boolean isOverAny = false;
                 for (DragArea area : dragController.getDragAreas()) {
                     if (area.isOver((int) event.getX(), (int) event.getY()) && area.getSrcBlock() != block) {
@@ -225,7 +228,14 @@ public class MainController implements I18nResolver {
         ButtonType action = dirtyConfirmation();
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
-        currentProject = new Project(new File("D:\\test_project"));
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Create a new project");
+        File selectedDirectory = directoryChooser.showDialog(canvasContainer.getScene().getWindow());
+
+        if (selectedDirectory == null) return;
+
+        currentProject = new Project(selectedDirectory);
         currentProject.create();
         ProgramBlock defaultBlock = new ProgramBlock();
         defaultBlock.getShape().setPosition(50, 50);
@@ -235,14 +245,18 @@ public class MainController implements I18nResolver {
 
     @FXML
     public void onOpenProject() {
-        /*ButtonType action = dirtyConfirmation();
+        ButtonType action = dirtyConfirmation();
         if (ButtonType.YES.equals(action)) onSaveProject();
         else if (ButtonType.CANCEL.equals(action)) return;
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open a project");*/
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Load a project");
+        File selectedDirectory = directoryChooser.showDialog(canvasContainer.getScene().getWindow());
+
+        if (selectedDirectory == null) return;
+
         try {
-            currentProject = new ProjectDeserializer(new File("D:\\test_project")).deserialize();
+            currentProject = new ProjectDeserializer(selectedDirectory).deserialize();
             render();
         } catch (ParserConfigurationException | IOException | SAXException | IllegalAccessException | InstantiationException | ClassNotFoundException | BlockException e) { // Yes, all those exceptions COULD get thrown o_o. I love java.
             e.printStackTrace();
@@ -251,9 +265,13 @@ public class MainController implements I18nResolver {
 
     @FXML
     public void onSaveProject() {
+        if (currentProject == null)
+            return;
+
         ProjectSerializer serializer = new ProjectSerializer(currentProject);
         try {
             serializer.serialize();
+            dirty = false;
         } catch (ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
         }
