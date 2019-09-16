@@ -15,8 +15,6 @@ This project aims to create an up to date and easy to use coding software for th
 
 After installing the drivers, download the latest ArduLeucht from here https://github.com/Twometer/ArduLeucht/releases.
 
-For windows, download the .exe file. All other OS download and execute the jar file.
-
 ## Screenshots
 ...
 
