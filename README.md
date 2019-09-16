@@ -13,7 +13,9 @@ This project aims to create an up to date and easy to use coding software for th
 ## Installation
 **Important**: Before you can use this software, you have to download the Digispark drivers. Download them here: https://github.com/digistump/DigistumpArduino/releases. **You only need the drivers, located in Digistump.Drivers.zip!**
 
-After installing the drivers, download the latest ArduLeucht from here https://github.com/Twometer/ArduLeucht/releases
+After installing the drivers, download the latest ArduLeucht from here https://github.com/Twometer/ArduLeucht/releases.
+
+For windows, download the .exe file. All other OS download and execute the jar file.
 
 ## Screenshots
 ...
