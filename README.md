@@ -5,14 +5,15 @@
 This project aims to create an up to date and easy to use coding software for the [Tetrapix](https://tetrapix.de) project. The latest official version does not run in limited environments (such as some school systems), and also uses outdated Arduino and Ardublock versions. The usability of the block code editor could also greatly be improved.
 
 ## Features
-- Easy to use
 - Block code editor
-- Runs in limited school environments
-- Fully automatic .msi installation for Windows
-- blah
+- Very Easy to use
+- Modern and simple GUI
+- Runs in limited environments (e.g. schools)
 
 ## Installation
-To install, use MSI blah blah blah, note the importance of the digispark drivers and link them blah blah
+**Important**: Before you can use this software, you must download the Digispark drivers. Download them here: https://github.com/digistump/DigistumpArduino/releases. **You only need the drivers, located in Digistump.Drivers.zip!**
+
+After installing the drivers, download the latest ArduLeucht from here https://github.com/Twometer/ArduLeucht/releases.
 
 ## Screenshots
 ...
@@ -25,4 +26,3 @@ For more complicated or individual issues, you can contact me here: [support@two
 ## Credits
 - This is based on the Arduino Project
 - The idea for this comes from Tetrapix
-- ...
