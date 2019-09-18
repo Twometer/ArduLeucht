@@ -9,7 +9,7 @@ public class FileSystem {
     }
 
     public static File getInstallDir() {
-        return new File("M:\\"); // TODO
+        return new File(new File(".").getAbsoluteFile(), "arduino");
     }
 
 }
