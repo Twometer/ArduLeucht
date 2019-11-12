@@ -38,9 +38,11 @@ public abstract class ConstantBlock<T> extends Block {
 
     @SuppressWarnings("unchecked")
     protected T getValue() {
-        if (value.getClass() != inputType)
-            throw new IllegalStateException("Value must be of type " + inputType.getSimpleName());
-        return (T) value;
+        try {
+            return (T) value;
+        } catch (ClassCastException ex) {
+            throw new IllegalStateException("Value must be of type " + inputType.getSimpleName() + ", but got " + value + "(" + value.getClass().getSimpleName() + ")", ex);
+        }
     }
 
     protected void setValue(T value) {
@@ -54,6 +56,8 @@ public abstract class ConstantBlock<T> extends Block {
             this.value = Boolean.parseBoolean(string);
         else if (inputType == String.class)
             this.value = string;
+
+        // System.out.println("Loading " + string + " into " + this.getClass().getSimpleName() + ", with an input type of " + inputType + ", a value type of " + this.value.getClass().getSimpleName() + ", and a value of " + string + " (" + this.value + ")");
     }
 
     public String valueToString() {

@@ -50,7 +50,6 @@ public class ProjectDeserializer {
         if (blockElement.hasAttribute("Value") && block instanceof ConstantBlock)
             ((ConstantBlock) block).valueFromString(blockElement.getAttribute("Value"));
 
-
         for (int i = 0; i < blockElement.getChildNodes().getLength(); i++) {
             Element elem = (Element) blockElement.getChildNodes().item(i);
             if (elem.getTagName().equals("BlockSocket")) {

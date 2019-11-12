@@ -9,5 +9,6 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jmetro-5.6" level="project" />
+    <orderEntry type="library" name="org.jfxtras:jmetro:5.3" level="project" />
   </component>
 </module>
