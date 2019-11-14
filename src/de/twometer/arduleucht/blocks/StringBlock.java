@@ -14,7 +14,7 @@ public class StringBlock extends ConstantBlock<String> {
     }
 
     private StringBlock(String value) {
-        super("blocks.data.string", BlockCategory.DATA, BlockType.DATA, String.class);
+        super("blocks.data.string", BlockCategory.DATA, BlockType.STATEMENT, String.class);
         setValue(value);
     }
 

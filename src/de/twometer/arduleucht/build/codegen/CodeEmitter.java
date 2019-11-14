@@ -45,6 +45,14 @@ public class CodeEmitter {
         indent++;
     }
 
+    public void openIf(Block condition) throws BlockException {
+        writeIndent();
+        write("if (");
+        writeObject(condition);
+        write(") {\n");
+        indent++;
+    }
+
     public void openFor(Block variable, Block from, Block to, Block step) throws BlockException {
         writeIndent();
         write("for (int ");

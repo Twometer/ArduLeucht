@@ -15,7 +15,7 @@ public class VariableNameBlock extends ConstantBlock<String> {
     }
 
     public VariableNameBlock() {
-        super("blocks.data.var_name", BlockCategory.DATA, BlockType.DATA, String.class);
+        super("blocks.data.var_name", BlockCategory.DATA, BlockType.STATEMENT, String.class);
     }
 
     @Override

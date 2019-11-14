@@ -14,7 +14,7 @@ public class IntBlock extends ConstantBlock<Integer> {
     }
 
     IntBlock(int value) {
-        super("blocks.data.integer", BlockCategory.DATA, BlockType.DATA, int.class);
+        super("blocks.data.integer", BlockCategory.DATA, BlockType.STATEMENT, int.class);
         setValue(value);
     }
 

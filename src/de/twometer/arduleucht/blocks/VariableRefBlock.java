@@ -12,7 +12,7 @@ import de.twometer.arduleucht.build.codegen.CodeEmitter;
 public class VariableRefBlock extends ConstantBlock<String> {
 
     public VariableRefBlock() {
-        super("blocks.data.var_ref", BlockCategory.DATA, BlockType.DATA, String.class);
+        super("blocks.data.var_ref", BlockCategory.DATA, BlockType.STATEMENT, String.class);
     }
 
     @Override

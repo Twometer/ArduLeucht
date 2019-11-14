@@ -12,12 +12,15 @@ public class BlockRegistry {
     private static final Block[] REGISTERED_BLOCKS = new Block[]{
             new ProgramBlock(),
             new ForBlock(),
+            new IfBlock(),
             new SetPixelBlock(),
             new TetrapixInitBlock(),
             new IntBlock(),
             new StringBlock(),
             new VariableRefBlock(),
-            new VariableNameBlock()
+            new VariableNameBlock(),
+            new EqualityBlock(),
+            new InequalityBlock()
     };
 
     public static List<BlockInfo> getBlocks(BlockCategory category) {

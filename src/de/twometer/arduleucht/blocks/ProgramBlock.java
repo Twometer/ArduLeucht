@@ -10,9 +10,9 @@ import de.twometer.arduleucht.build.codegen.SourceBuilder;
 public class ProgramBlock extends Block {
 
     public ProgramBlock() {
-        super("blocks.control.program", BlockCategory.CONTROL, BlockType.METHOD);
-        addSocket("setup", BlockType.METHOD).allowMultiple();
-        addSocket("loop", BlockType.METHOD).allowMultiple();
+        super("blocks.control.program", BlockCategory.CONTROL, BlockType.CONTROL);
+        addSocket("setup", BlockType.CONTROL).allowMultiple();
+        addSocket("loop", BlockType.CONTROL).allowMultiple();
     }
 
     @Override

@@ -97,14 +97,11 @@ public class BlockShape {
         context.setEffect(shadow);
 
         switch (block.getType()) {
-            case METHOD:
+            case CONTROL:
                 context.setFill(LeuchtColors.ORANGE);
                 break;
-            case DATA:
+            case STATEMENT:
                 context.setFill(LeuchtColors.BLUE);
-                break;
-            case OPERATION:
-                context.setFill(LeuchtColors.GREEN);
                 break;
         }
 
@@ -153,7 +150,7 @@ public class BlockShape {
         polygon.addPoint(width, yo);
         for (BlockSocket socket : block.getSockets()) {
 
-            if (socket.getAllowedTypes().contains(BlockType.METHOD)) {
+            if (socket.getAllowedTypes().contains(BlockType.CONTROL)) {
                 polygon.addPoint(width - SOCKET_WIDTH, yo);
                 socket.getShape().setOrigin(this.x + width - SOCKET_WIDTH, this.y + yo);
                 yo += socket.getShape().getHeight();
