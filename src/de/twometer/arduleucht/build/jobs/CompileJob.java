@@ -21,7 +21,7 @@ public class CompileJob implements BuildJob {
             ConsoleProcess process = ConsoleProcess.create(builderCmd);
             process.waitFor();
             if (!builder.getOutputFile().exists())
-                throw new BuildException("Compilation failed. Did you install the Arduino SDK?");
+                throw new BuildException("Bitte überprüfe deinen Code auf Fehler.");
         } catch (IOException | InterruptedException e) {
             throw new BuildException(e.getMessage());
         }
