@@ -7,6 +7,7 @@ import de.twometer.arduleucht.build.jobs.CodegenJob;
 import de.twometer.arduleucht.build.jobs.CompileJob;
 import de.twometer.arduleucht.build.jobs.UploadJob;
 import de.twometer.arduleucht.model.Project;
+import de.twometer.arduleucht.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class ProjectBuilder {
     private Project project;
 
     private File hexFile;
+
+    private volatile boolean hasFailed = false;
 
     private BuildListener buildListener = new BuildListener() {
         @Override
@@ -49,6 +52,8 @@ public class ProjectBuilder {
             for (BuildJob job : JOBS) {
                 try {
                     job.execute(this);
+                    if (hasFailed)
+                        return;
                 } catch (IOException | BuildException e) {
                     buildListener.onBuildFailed(e.getMessage());
                     return;
@@ -56,6 +61,12 @@ public class ProjectBuilder {
             }
             buildListener.onBuildSucceeded();
         }, "BuildThread").start();
+    }
+
+    public void fail(String message) {
+        Log.i("Build has failed: " + message);
+        hasFailed = true;
+        buildListener.onBuildFailed(message);
     }
 
     public BuildListener getBuildListener() {

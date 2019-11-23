@@ -22,6 +22,8 @@ public class UploadJob implements BuildJob {
                     engine.getBuildListener().onBuildStateChanged(BuildState.PLUG_IN);
                 else if (line.contains("Device is found"))
                     engine.getBuildListener().onBuildStateChanged(BuildState.UPLOADING);
+                else if (line.contains("Device search timed out"))
+                    engine.fail("Gerät nicht gefunden");
             });
             process.waitFor();
         } catch (IOException | InterruptedException e) {

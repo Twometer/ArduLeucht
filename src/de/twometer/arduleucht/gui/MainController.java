@@ -24,7 +24,6 @@ import de.twometer.arduleucht.io.ProjectSerializer;
 import de.twometer.arduleucht.io.ResourceLoader;
 import de.twometer.arduleucht.model.Project;
 import de.twometer.arduleucht.render.BlockShape;
-import de.twometer.arduleucht.render.api.LeuchtColors;
 import de.twometer.arduleucht.render.api.Point;
 import de.twometer.arduleucht.util.BuildInfo;
 import de.twometer.arduleucht.util.Wrapper;
@@ -216,7 +215,6 @@ public class MainController implements I18nResolver {
             block.getShape().draw(gc, dragController, this);
         }
 
-        gc.setFill(LeuchtColors.PURPLE);
         for (DragArea area : dragController.getDragAreas()) {
             if (area.isHighlighted())
                 gc.fillRect(area.getSrcBlock().getShape().getX() + area.getX(), area.getSrcBlock().getShape().getY() + area.getY() + 5, area.getWidth(), 2);

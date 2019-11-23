@@ -63,7 +63,7 @@ public class ArduinoBuilder implements ArduinoSdk {
 
         builder.addFlag("verbose");
 
-        builder.append(project.getGeneratedFile().getAbsolutePath());
+        builder.append("\"" + project.getGeneratedFile().getAbsolutePath() + "\"");
         return builder.toString();
     }
 
@@ -76,6 +76,6 @@ public class ArduinoBuilder implements ArduinoSdk {
     }
 
     private String getContentFile(String filePath) {
-        return new File(baseDirectory, filePath).getAbsolutePath();
+        return "\"" + new File(baseDirectory, filePath).getAbsolutePath() + "\"";
     }
 }

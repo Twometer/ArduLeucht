@@ -18,12 +18,8 @@ public class Micronucleus implements ArduinoSdk {
 
     @Override
     public String createCommandLine() {
-        return buildCommandLine();
-    }
-
-    private String buildCommandLine() {
         CommandLineBuilder builder = new CommandLineBuilder();
-        builder.append(getContentFile("hardware\\digistump\\tools\\micronucleus\\2.0a4\\launcher"));
+        builder.append("\"" + getContentFile("hardware\\digistump\\tools\\micronucleus\\2.0a4\\launcher") + "\"");
         builder.addFlag("cdigispark");
         builder.addParameter("-timeout", "60");
         builder.append(String.format("-Uflash:w:%s:i ", hexFile.getAbsolutePath()));

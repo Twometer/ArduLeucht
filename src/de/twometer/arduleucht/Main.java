@@ -22,7 +22,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(ResourceLoader.getResource("layout/main.fxml"));
         loader.setResources(ResourceBundle.getBundle("bundles.gui"));
-
         Parent root = loader.load();
         Theme.apply(root);
 

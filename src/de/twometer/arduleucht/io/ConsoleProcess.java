@@ -1,5 +1,7 @@
 package de.twometer.arduleucht.io;
 
+import de.twometer.arduleucht.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +21,8 @@ public class ConsoleProcess {
     }
 
     public static ConsoleProcess create(String commandLine) throws IOException {
-        Process process = Runtime.getRuntime().exec("cmd /c " + commandLine);
+        Process process = Runtime.getRuntime().exec("cmd /c \"" + commandLine + "\"");
+        Log.i("Starting console process 'cmd /c \"" + commandLine + "\"'");
         return new ConsoleProcess(process);
     }
 
@@ -34,6 +37,8 @@ public class ConsoleProcess {
                 while ((line = stdIn.readLine()) != null) {
                     if (listener != null)
                         listener.stdin(line);
+
+                    System.out.println(line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
