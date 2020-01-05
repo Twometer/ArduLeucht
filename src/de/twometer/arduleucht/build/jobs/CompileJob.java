@@ -19,6 +19,7 @@ public class CompileJob implements BuildJob {
 
         try {
             ConsoleProcess process = ConsoleProcess.create(builderCmd);
+            process.setListener(line -> System.out.println(line));
             process.waitFor();
             if (!builder.getOutputFile().exists())
                 throw new BuildException("Bitte überprüfe deinen Code auf Fehler.");

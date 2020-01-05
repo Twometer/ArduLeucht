@@ -10,10 +10,13 @@ import java.io.IOException;
 
 public class UploadJob implements BuildJob {
 
+    private boolean micronucleusOk = false;
+
     @Override
     public void execute(ProjectBuilder engine) throws BuildException {
         Micronucleus micronucleus = new Micronucleus(engine.getHexFile());
         String uploaderCmd = micronucleus.createCommandLine();
+        micronucleusOk = false;
 
         try {
             ConsoleProcess process = ConsoleProcess.create(uploaderCmd);
@@ -23,12 +26,17 @@ public class UploadJob implements BuildJob {
                 else if (line.contains("Device is found"))
                     engine.getBuildListener().onBuildStateChanged(BuildState.UPLOADING);
                 else if (line.contains("Device search timed out"))
-                    engine.fail("Gerät nicht gefunden");
+                    engine.fail("Chip nicht gefunden");
+                else if (line.contains("Micronucleus done."))
+                    micronucleusOk = true;
             });
             process.waitFor();
         } catch (IOException | InterruptedException e) {
             throw new BuildException(e.getMessage());
         }
+
+        if (!micronucleusOk)
+            engine.fail("Den Chip vor dem Hochladen abziehen und erst einstecken, wenn du dazu aufgefordert wirst.");
     }
 
 }

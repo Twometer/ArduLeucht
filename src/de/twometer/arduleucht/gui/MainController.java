@@ -258,6 +258,12 @@ public class MainController implements I18nResolver {
             render();
         } catch (ParserConfigurationException | IOException | SAXException | IllegalAccessException | InstantiationException | ClassNotFoundException | BlockException e) { // Yes, all those exceptions COULD get thrown o_o. I love java.
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(i18n("dialog.fail.title"));
+            alert.setContentText(i18n("dialog.invalid_project.content"));
+            alert.setHeaderText(null);
+            Theme.apply(alert);
+            alert.showAndWait();
         }
     }
 
