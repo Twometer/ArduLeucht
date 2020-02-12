@@ -2,7 +2,8 @@
 (this is german for ArduGlow)
 
 ## Pre-Release Disclaimer
-This is a pre-release. Some things might not yet work as expected. If something doesn't work, open an issue. If you'd like to have a feature added, open an issue.
+This is a pre-release. Some things might not yet work as expected. If something doesn't work, open an issue. If you'd like to have a feature added, open an issue. If you plan on using ArduLeucht in a production environment, you should have some kind of automatic
+updating solution. Feel free to contact me at the e-mail below (German & English).
 
 Important: To get log output, go to the install folder and start the `ArduLeucht.jar` file by opening `cmd` and typing `java -jar ArduLeucht.jar`. This way, you'll get error messages if something goes wrong. Without these messages I **cannot** fix most bugs.
 
@@ -21,7 +22,7 @@ This project aims to create an up to date and easy to use coding software for th
 After installing the drivers, download the latest ArduLeucht from here https://github.com/Twometer/ArduLeucht/releases.
 
 ## Screenshots
-...
+![](screenshot.png)
 
 ## Reporting bugs
 To report a bug or request a new feature, please use the [GitHub issues](https://github.com/Twometer/ArduLeucht/issues/new/choose) system.
