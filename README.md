@@ -2,8 +2,7 @@
 (this is german for ArduGlow)
 
 ## Pre-Release Disclaimer
-This is a pre-release. Some things might not yet work as expected. If something doesn't work, open an issue. If you'd like to have a feature added, open an issue. If you plan on using ArduLeucht in a production environment, you should have some kind of automatic
-updating solution. Feel free to contact me at the e-mail below (German & English).
+This is a pre-release. Some things might not yet work as expected. If something doesn't work, open an issue. If you'd like to have a feature added, open an issue (or a pull request :D). If you plan on using ArduLeucht in a production environment, you should have some kind of automatic updating solution.
 
 Important: To get log output, go to the install folder and start the `ArduLeucht.jar` file by opening `cmd` and typing `java -jar ArduLeucht.jar`. This way, you'll get error messages if something goes wrong. Without these messages I **cannot** fix most bugs.
 
