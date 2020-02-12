@@ -2,9 +2,11 @@
 (this is german for ArduGlow)
 
 ## Pre-Release Disclaimer
-This is a pre-release. Some things might not yet work as expected. If something doesn't work, open an issue. If you'd like to have a feature added, open an issue (or a pull request :D). If you plan on using ArduLeucht in a production environment, you should have some kind of automatic updating solution.
+This is a pre-release. Some things might not yet work as expected. If something doesn't work, open an issue. If you'd like to have a feature added, open an issue (or a pull request :D).
 
-Important: To get log output, go to the install folder and start the `ArduLeucht.jar` file by opening `cmd` and typing `java -jar ArduLeucht.jar`. This way, you'll get error messages if something goes wrong. Without these messages I **cannot** fix most bugs.
+If you plan on using ArduLeucht in a production environment, you should have a way to update it while it's in pre-release.
+
+Important: To get log output for the bug reports, go to the install folder and start the `ArduLeucht.jar` file by opening `cmd` and typing `java -jar ArduLeucht.jar`. This way, you'll get error messages if something goes wrong. Without these messages I **cannot** fix most bugs.
 
 ## Introduction
 This project aims to create an up to date and easy to use coding software for the [Tetrapix](https://tetrapix.de) project. The latest official version does not run in limited environments (such as some school systems), and also uses outdated Arduino and Ardublock versions. The usability of the block code editor could also greatly be improved.
